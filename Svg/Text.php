@@ -43,7 +43,7 @@ class Text  extends Graphic {
      * @param   boolean		$isRoot     Unsused, kept to match parent
      * @return  string
      */
-     public function build ( boolean $isRoot=NUll ) {
+     public function build ( $isRoot=NUll ) {
 		$builder = '<text'; 
 		foreach ( $this->attributes as $key => $value ) {
 			$builder .= ' ' . $key . '="' . $value . '"'; 

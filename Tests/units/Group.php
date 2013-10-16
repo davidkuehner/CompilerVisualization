@@ -16,6 +16,11 @@ class Group extends atoum\test
 		
 		$group = new Svg\Group();
         $this->string( $group->build() )->isEqualTo( $assert );
+        
+        $assert = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>';
+        $this->string( $group->build(true) )->isEqualTo( $assert );
+        
+        
     }
     
     public function testAdd() {
@@ -44,5 +49,12 @@ class Group extends atoum\test
         $text2 = new Svg\Text( $str2 );
         $group->add( $text2 );
         $this->string( $group->build() )->isEqualTo( $assert );
+        
+        $assert = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><g><text y="1em">' . $str . '</text></g></svg>';
+        
+        $group = new Svg\Group();
+        $childGroup = new Svg\Group();
+        $childGroup->add( $text );
+        $this->string( $group->build(true) )->isEqualTo( $assert );
 	}
 }

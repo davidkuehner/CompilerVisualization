@@ -36,7 +36,7 @@ class Group  extends \Hoathis\Svg\Graphic {
      * @param   boolean		$isRoot     Is this element the svg root ?
      * @return  string
      */
-     public function build ( boolean $isRoot=Null ) {
+     public function build ( $isRoot=Null ) {
 		$openerTag = '<g>';
 		$closerTag = '</g>';
 		
