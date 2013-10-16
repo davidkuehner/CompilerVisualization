@@ -20,7 +20,14 @@ class Group  extends \Hoathis\Svg\Graphic {
 	/**
 	 * List of elements in the group 
 	 */
-	private $elements = array();
+	private $elements;
+	
+	/**
+     * Main constructor
+     */
+	function __construct() {
+		$this->elements = array();
+	}
 
     /**
      * Build an svg element.
@@ -30,7 +37,15 @@ class Group  extends \Hoathis\Svg\Graphic {
      * @return  string
      */
      public function build ( boolean $isRoot=Null ) {
-
+		$openerTag = '<g>';
+		$closerTag = '</g>';
+		
+		$builder = $openerTag;
+		foreach ( (array)$this->elements as $element ) {
+				$builder .= $element->build();
+			}
+		$builder .= $closerTag;
+		return $builder;
 	 }
     
     /**
@@ -41,7 +56,7 @@ class Group  extends \Hoathis\Svg\Graphic {
      * @return  string
      */
     public function add ( \Hoathis\Svg\Graphic $element ) {
-
+		$this->elements[] = $element;
 	}
 	
 }

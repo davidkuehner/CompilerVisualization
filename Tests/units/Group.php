@@ -14,20 +14,35 @@ class Group extends atoum\test
     public function testBuild() {
 		$assert = '<g></g>';
 		
-		$Group = new Svg\Group();
-        $this->string($Group->build())->isEqualTo($assert);
+		$group = new Svg\Group();
+        $this->string( $group->build() )->isEqualTo( $assert );
+    }
+    
+    public function testAdd() {
+		$assert = '<g><g></g></g>';
         
-        $assert = '<g><g></g></g>';
-        
-        $Child = new Svg\Group();
-        $Group = new Svg\Group($Child);
-        $this->string($Group->build())->isEqualTo($assert);
+        $child = new Svg\Group();
+        $group = new Svg\Group();
+        $group->add( $child );
+        $this->string( $group->build() )->isEqualTo( $assert );
         
         $str = "I find your lack of faith disturbing.";
 		$assert = '<g><text y="1em">' . $str . '</text></g>';
 		
-		$text = new Svg\Text($str);
-        $Group = new Svg\Group($element);
-        $this->string($Group->build())->isEqualTo($assert);
-    }
+		$text = new Svg\Text( $str );
+        $group = new Svg\Group();
+        $group->add( $text );
+        $this->string( $group->build() )->isEqualTo( $assert );
+        
+        $str2 = "I’ve got a very bad feeling about this.";
+        $assert = '<g><g><text y="1em">' . $str . '</text></g><text y="1em">' . $str2 . '</text></g>';
+        
+        $group = new Svg\Group();
+        $childGroup = new Svg\Group();
+        $childGroup->add( $text );
+        $group->add( $childGroup );
+        $text2 = new Svg\Text( $str2 );
+        $group->add( $text2 );
+        $this->string( $group->build() )->isEqualTo( $assert );
+	}
 }
