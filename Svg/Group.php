@@ -2,7 +2,7 @@
 
 namespace Hoathis\Svg {
 	
-include __DIR__.'/Graphic.php';
+require_once __DIR__.'/Graphic.php';
 
 /**
  * Class \Hoathis\Svg\Group.
@@ -15,7 +15,7 @@ include __DIR__.'/Graphic.php';
  * @license    New BSD License
  */
 
-abstract class Group  extends \Hoathis\Svg\Graphic {
+class Group  extends \Hoathis\Svg\Graphic {
 	
 	/**
 	 * List of elements in the group 

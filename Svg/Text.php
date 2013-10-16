@@ -2,7 +2,7 @@
 
 namespace Hoathis\Svg {
 	
-include __DIR__.'/Graphic.php';
+require_once __DIR__.'/Graphic.php';
 
 /**
  * Class \Hoathis\Svg\Text.
