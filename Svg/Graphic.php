@@ -36,7 +36,7 @@ abstract class Graphic  {
      * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
      * @return  string
      */
-    abstract public function add ( \Hoathis\Svg\Graphic $element );
+    abstract public function addElement ( \Hoathis\Svg\Graphic $element );
 	
 }
 

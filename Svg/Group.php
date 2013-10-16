@@ -23,6 +23,11 @@ class Group  extends \Hoathis\Svg\Graphic {
 	private $elements;
 	
 	/**
+	 * Xml attributes
+	 */
+	private $attributes ;
+	
+	/**
      * Main constructor
      */
 	function __construct() {
@@ -40,6 +45,11 @@ class Group  extends \Hoathis\Svg\Graphic {
 		$openerTag = '<g>';
 		$closerTag = '</g>';
 		
+		if ( $isRoot == true ) {
+			$openerTag = '<svg ' . self::XML_XMLNS . ' ' . self::XML_VERSION . '>';
+			$closerTag = '</svg>';
+		}
+		
 		$builder = $openerTag;
 		foreach ( (array)$this->elements as $element ) {
 				$builder .= $element->build();
@@ -55,9 +65,11 @@ class Group  extends \Hoathis\Svg\Graphic {
      * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
      * @return  string
      */
-    public function add ( \Hoathis\Svg\Graphic $element ) {
+    public function addElement ( \Hoathis\Svg\Graphic $element ) {
 		$this->elements[] = $element;
 	}
+	
+	
 	
 }
 

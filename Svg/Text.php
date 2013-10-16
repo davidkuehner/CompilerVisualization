@@ -21,6 +21,10 @@ class Text  extends Graphic {
 	 * Text content 
 	 */
 	private $text ;
+	
+	/**
+	 * Xml attributes
+	 */
 	private $attributes ;
 	
 	/**
@@ -61,7 +65,7 @@ class Text  extends Graphic {
      * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
      * @return  string
      */
-    public function add ( \Hoathis\Svg\Graphic $element ) {
+    public function addElement ( \Hoathis\Svg\Graphic $element ) {
 		 
 	}
 	
