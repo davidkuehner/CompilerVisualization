@@ -14,6 +14,10 @@ namespace Hoathis\Svg {
  */
 
 abstract class Graphic  {
+	
+	const XML_STANDALONE_VERSION = '<?xml version="1.0" standalone="no"?>';
+	const XML_STANDALONE_DTD = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
+	const XML_XMLNS = 'xmlns="http://www.w3.org/2000/svg"';
 
     /**
      * Build an svg element.
