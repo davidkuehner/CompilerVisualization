@@ -29,7 +29,11 @@ class Text  extends Graphic {
      * @param   string		$text     The content to display
      */
 	function __construct($text) {
-
+        $this->text = $text;
+        /* 1em is hardcoded because it's absolutly 
+         * nessesary to display the text. It can be overrided.
+         */ 
+        $this->attributes = [ 'y' => '1em' ];
     }
 	
     /**
@@ -40,7 +44,14 @@ class Text  extends Graphic {
      * @return  string
      */
      public function build ( boolean $isRoot=NUll ) {
-
+		$builder = '<text'; 
+		foreach ( $this->attributes as $key => $value ) {
+			$builder .= ' ' . $key . '="' . $value . '"'; 
+		}
+		$builder .= '>';
+		$builder .= $this->text;
+		$builder .= '</text>';
+		return $builder;
 	 }
     
     /**
