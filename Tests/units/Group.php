@@ -10,12 +10,12 @@ require_once __DIR__.'/../../Svg/Graphic.php';
 use \mageekguy\atoum;
 use \Hoathis\Svg;
 
-class Group extends atoum\test
+class G extends atoum\test
 {
     public function testBuild() {
 		$assert = '<g></g>';
 		
-		$group = new Svg\Group();
+		$group = new Svg\G();
         $this->string( $group->build() )->isEqualTo( $assert );      
         
     }
@@ -23,8 +23,8 @@ class Group extends atoum\test
     public function testAddElement() {
 		$assert = '<g><g></g></g>';
         
-        $child = new Svg\Group();
-        $group = new Svg\Group();
+        $child = new Svg\G();
+        $group = new Svg\G();
         $group->addElement( $child );
         $this->string( $group->build() )->isEqualTo( $assert );
         
@@ -32,15 +32,15 @@ class Group extends atoum\test
 		$assert = '<g><text y="1em">' . $str . '</text></g>';
 		
 		$text = new Svg\Text( $str );
-        $group = new Svg\Group();
+        $group = new Svg\G();
         $group->addElement( $text );
         $this->string( $group->build() )->isEqualTo( $assert );
         
         $str2 = "I’ve got a very bad feeling about this.";
         $assert = '<g><g><text y="1em">' . $str . '</text></g><text y="1em">' . $str2 . '</text></g>';
         
-        $group = new Svg\Group();
-        $childGroup = new Svg\Group();
+        $group = new Svg\G();
+        $childGroup = new Svg\G();
         $childGroup->addElement( $text );
         $group->addElement( $childGroup );
         $text2 = new Svg\Text( $str2 );
@@ -53,7 +53,7 @@ class Group extends atoum\test
 		$assert = '<g foo="bar" han="solo"></g>';
 		
 		$attrib = array("foo"=>"bar","han"=>"solo");
-		$group = new Svg\Group();
+		$group = new Svg\G();
 		$group->setAtributes($attrib);
 		
 		$this->string( $group->build() )->isEqualTo( $assert );

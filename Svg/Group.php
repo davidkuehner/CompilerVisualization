@@ -3,6 +3,7 @@
 namespace Hoathis\Svg {
 	
 require_once __DIR__.'/Graphic.php';
+require_once __DIR__.'/Inode.php';
 
 /**
  * Class \Hoathis\Svg\Group.
@@ -15,17 +16,7 @@ require_once __DIR__.'/Graphic.php';
  * @license    New BSD License
  */
 
-class Group extends \Hoathis\Svg\Graphic {
-	
-	/**
-	 * List of elements in the group 
-	 */
-	private $elements;
-	
-	/**
-	 * Xml attributes
-	 */
-	private $attributes ;
+class G extends \Hoathis\Svg\Inode {
 	
 	/**
      * Main constructor
@@ -33,58 +24,6 @@ class Group extends \Hoathis\Svg\Graphic {
 	function __construct() {
 		$this->elements = array();
 		$this->attributes = array();
-	}
-
-    /**
-     * Build an g element.
-     *
-     * @access  public
-     * @param   boolean		$isRoot     Unsused, kept to match parent
-     * @return  string
-     */
-     public function build ( $isRoot=Null ) {
-		// Opener Tag construction
-		$builder = '<g';
-		
-		// If it's an svg root element, adds XMLNS and Version
-		if ( strtolower( get_class( $this ) ) == 'svg' && $isRoot == true ) {
-			$builder .= self::XML_XMLNS . ' ' . self::XML_VERSION;
-		}
-
-		// Adds every attributes in the tag
-		foreach ( $this->attributes as $key => $value ) {
-			$builder .= ' ' . $key . '="' . $value . '"'; 
-		}
-		$builder .= '>';
-		
-		// Adds children elements
-		foreach ( (array)$this->elements as $element ) {
-				$builder .= $element->build();
-			}
-		
-		// Close the current element with the closer tag
-		$builder .= '</g>';
-		return $builder;
-	 }
-    
-    /**
-     * Add a child svg element.
-     *
-     * @access  public
-     * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
-     */
-    public function addElement ( \Hoathis\Svg\Graphic $element ) {
-		$this->elements[] = $element;
-	}
-	
-	 /**
-     * Add a child an attribute.
-     *
-     * @access  public
-     * @param   array	$attributes     "key"=>"value" as "width"=>"20px"
-     */
-    public function setAtributes ( array $attributes ) {
-		$this->attributes = array_merge($this->attributes, $attributes);
 	}
 }
 

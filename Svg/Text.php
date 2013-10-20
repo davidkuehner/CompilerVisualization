@@ -23,11 +23,6 @@ class Text  extends Graphic {
 	private $text ;
 	
 	/**
-	 * Xml attributes
-	 */
-	private $attributes ;
-	
-	/**
      * Main constructor
      *
      * @param   string		$text     The content to display

@@ -17,8 +17,13 @@ abstract class Graphic  {
 	
 	const XML_STANDALONE_VERSION = '<?xml version="1.0" standalone="no"?>';
 	const XML_STANDALONE_DTD = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
-	const XML_XMLNS = 'xmlns="http://www.w3.org/2000/svg"';
-	const XML_VERSION = 'version="1.1"';
+	const XML_XMLNS = 'http://www.w3.org/2000/svg';
+	const XML_VERSION = '1.1';
+	
+	/**
+	 * Xml attributes
+	 */
+	protected $attributes ;
 
     /**
      * Build an svg element.
@@ -27,16 +32,17 @@ abstract class Graphic  {
      * @param   boolean		$isRoot     Is this element the svg root ?
      * @return  string
      */
-    abstract public function build ( $isRoot=Null );
+    abstract public function build ();
     
-    /**
-     * Add a child svg element.
+     /**
+     * Add an attribute.
      *
      * @access  public
-     * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
-     * @return  string
+     * @param   array	$attributes     "key"=>"value" as "width"=>"20px"
      */
-    abstract public function addElement ( \Hoathis\Svg\Graphic $element );
+    public function setAtributes ( array $attributes ) {
+		$this->attributes = array_merge($this->attributes, $attributes);
+	}
 	
 }
 
