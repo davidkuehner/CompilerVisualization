@@ -48,4 +48,21 @@ class Group extends atoum\test
         $this->string( $group->build() )->isEqualTo( $assert );
         
 	}
+	
+	public function testAddAtributes() {
+		$assert = '<g foo="bar" han="solo"></g>';
+		
+		$attrib = array("foo"=>"bar","han"=>"solo");
+		$group = new Svg\Group();
+		$group->setAtributes($attrib);
+		
+		$this->string( $group->build() )->isEqualTo( $assert );
+		
+		$assert = '<g foo="bar" han="leia" even="odds"></g>';
+		$attrib = array("even"=>"odds", "han"=>"leia");
+		$group->setAtributes($attrib);
+		
+		$this->string( $group->build() )->isEqualTo( $assert );
+		
+	}
 }

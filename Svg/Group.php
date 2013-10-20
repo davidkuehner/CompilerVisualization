@@ -72,10 +72,19 @@ class Group extends \Hoathis\Svg\Graphic {
      *
      * @access  public
      * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
-     * @return  string
      */
     public function addElement ( \Hoathis\Svg\Graphic $element ) {
 		$this->elements[] = $element;
+	}
+	
+	 /**
+     * Add a child an attribute.
+     *
+     * @access  public
+     * @param   array	$attributes     "key"=>"value" as "width"=>"20px"
+     */
+    public function setAtributes ( array $attributes ) {
+		$this->attributes = array_merge($this->attributes, $attributes);
 	}
 }
 
