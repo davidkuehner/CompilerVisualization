@@ -63,6 +63,5 @@ class G extends atoum\test
 		$group->setAtributes($attrib);
 		
 		$this->string( $group->build() )->isEqualTo( $assert );
-		
 	}
 }

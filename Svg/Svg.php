@@ -4,8 +4,9 @@ namespace Hoathis\Svg {
 	
 require_once __DIR__.'/Inode.php';
 
+
 /**
- * Class \Hoathis\Svg\Group.
+ * Class \Hoathis\Svg\Svg.
  *
  * Concrete class that represents a composite element
  * for Composite pattern.
@@ -15,7 +16,10 @@ require_once __DIR__.'/Inode.php';
  * @license    New BSD License
  */
 
-class G extends \Hoathis\Svg\Inode {
+class Svg  extends \Hoathis\Svg\Inode {
+	
+	const XML_XMLNS = 'http://www.w3.org/2000/svg';
+	const XML_VERSION = '1.1';
 	
 	/**
      * Main constructor
@@ -25,5 +29,4 @@ class G extends \Hoathis\Svg\Inode {
 		$this->attributes = array();
 	}
 }
-
 }

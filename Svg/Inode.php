@@ -1,6 +1,9 @@
 <?php
 
 namespace Hoathis\Svg {
+	
+require_once __DIR__.'/Graphic.php';
+
 
 /**
  * Class \Hoathis\Svg\Inode.
