@@ -16,11 +16,7 @@ class Group extends atoum\test
 		$assert = '<g></g>';
 		
 		$group = new Svg\Group();
-        $this->string( $group->build() )->isEqualTo( $assert );
-        
-        $assert = '<svg ' . \Hoathis\Svg\Group::XML_XMLNS . ' ' . \Hoathis\Svg\Group::XML_VERSION . '></svg>';
-        $this->string( $group->build(true) )->isEqualTo( $assert );
-        
+        $this->string( $group->build() )->isEqualTo( $assert );      
         
     }
     
@@ -51,12 +47,5 @@ class Group extends atoum\test
         $group->addElement( $text2 );
         $this->string( $group->build() )->isEqualTo( $assert );
         
-        $assert = '<svg ' . \Hoathis\Svg\Group::XML_XMLNS . ' ' . \Hoathis\Svg\Group::XML_VERSION . '><g><text y="1em">' . $str . '</text></g></svg>';
-        
-        $group = new Svg\Group();
-        $childGroup = new Svg\Group();
-        $childGroup->addElement( $text );
-        $group->addElement( $childGroup );
-        $this->string( $group->build(true) )->isEqualTo( $assert );
 	}
 }

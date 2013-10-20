@@ -15,7 +15,7 @@ require_once __DIR__.'/Graphic.php';
  * @license    New BSD License
  */
 
-class Group  extends \Hoathis\Svg\Graphic {
+class Group extends \Hoathis\Svg\Graphic {
 	
 	/**
 	 * List of elements in the group 
@@ -32,29 +32,28 @@ class Group  extends \Hoathis\Svg\Graphic {
      */
 	function __construct() {
 		$this->elements = array();
+		$this->attributes = array();
 	}
 
     /**
-     * Build an svg element.
+     * Build an g element.
      *
      * @access  public
-     * @param   boolean		$isRoot     Is this element the svg root ?
+     * @param   boolean		$isRoot     Unsused, kept to match parent
      * @return  string
      */
      public function build ( $isRoot=Null ) {
-		$openerTag = '<g>';
-		$closerTag = '</g>';
-		
-		if ( $isRoot == true ) {
-			$openerTag = '<svg ' . self::XML_XMLNS . ' ' . self::XML_VERSION . '>';
-			$closerTag = '</svg>';
+		$builder = '<g'; 
+		foreach ( $this->attributes as $key => $value ) {
+			$builder .= ' ' . $key . '="' . $value . '"'; 
 		}
+		$builder .= '>';
 		
-		$builder = $openerTag;
 		foreach ( (array)$this->elements as $element ) {
 				$builder .= $element->build();
 			}
-		$builder .= $closerTag;
+			
+		$builder .= '</g>';
 		return $builder;
 	 }
     
@@ -68,9 +67,6 @@ class Group  extends \Hoathis\Svg\Graphic {
     public function addElement ( \Hoathis\Svg\Graphic $element ) {
 		$this->elements[] = $element;
 	}
-	
-	
-	
 }
 
 }
