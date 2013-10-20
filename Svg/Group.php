@@ -43,16 +43,26 @@ class Group extends \Hoathis\Svg\Graphic {
      * @return  string
      */
      public function build ( $isRoot=Null ) {
-		$builder = '<g'; 
+		// Opener Tag construction
+		$builder = '<g';
+		
+		// If it's an svg root element, adds XMLNS and Version
+		if ( strtolower( get_class( $this ) ) == 'svg' && $isRoot == true ) {
+			$builder .= self::XML_XMLNS . ' ' . self::XML_VERSION;
+		}
+
+		// Adds every attributes in the tag
 		foreach ( $this->attributes as $key => $value ) {
 			$builder .= ' ' . $key . '="' . $value . '"'; 
 		}
 		$builder .= '>';
 		
+		// Adds children elements
 		foreach ( (array)$this->elements as $element ) {
 				$builder .= $element->build();
 			}
-			
+		
+		// Close the current element with the closer tag
 		$builder .= '</g>';
 		return $builder;
 	 }
