@@ -1,12 +1,12 @@
 <?php
 
-namespace Hoathis\Svg {
+namespace Hoathis\GraphicTools {
 	
 require_once __DIR__.'/Graphic.php';
 
 
 /**
- * Class \Hoathis\Svg\Inode.
+ * Class \Hoathis\GraphicTools\Inode.
  *
  * Abstract class that represents containers elements 
  * for Composite pattern.
@@ -16,7 +16,7 @@ require_once __DIR__.'/Graphic.php';
  * @license    New BSD License
  */
 
-abstract class Inode extends \Hoathis\Svg\Graphic {
+abstract class Inode extends \Hoathis\GraphicTools\Graphic {
 	
 	/**
 	 * List of elements in the group 
@@ -27,9 +27,9 @@ abstract class Inode extends \Hoathis\Svg\Graphic {
      * Add a child svg element.
      *
      * @access  public
-     * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
+     * @param   \Hoathis\GraphicTools\Graphic	$element     The child element to add.
      */
-    public function addElement ( \Hoathis\Svg\Graphic $element ) {
+    public function addElement ( \Hoathis\GraphicTools\Graphic $element ) {
 		$this->elements[] = $element;
 	}
 	

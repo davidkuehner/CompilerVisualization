@@ -1,12 +1,12 @@
 <?php
 
-namespace Hoathis\Svg {
+namespace Hoathis\GraphicTools {
 	
 require_once __DIR__.'/Inode.php';
 
 
 /**
- * Class \Hoathis\Svg\Svg.
+ * Class \Hoathis\GraphicTools\Svg.
  *
  * Concrete class that represents a composite element
  * for Composite pattern.
@@ -16,7 +16,7 @@ require_once __DIR__.'/Inode.php';
  * @license    New BSD License
  */
 
-class Svg  extends \Hoathis\Svg\Inode {
+class Svg  extends \Hoathis\GraphicTools\Inode {
 	
 	const XML_XMLNS = 'http://www.w3.org/2000/svg';
 	const XML_VERSION = '1.1';

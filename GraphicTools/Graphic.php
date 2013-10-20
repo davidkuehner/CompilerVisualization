@@ -1,9 +1,9 @@
 <?php
 
-namespace Hoathis\Svg {
+namespace Hoathis\GraphicTools {
 
 /**
- * Class \Hoathis\Svg\Graphic.
+ * Class \Hoathis\GraphicTools\Graphic.
  *
  * Abstract class that represents both primitives and 
  * containers elements for Composite pattern.

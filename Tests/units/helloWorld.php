@@ -2,10 +2,8 @@
 
 namespace vendor\project\tests\units;
 
-require_once '/usr/local/lib/Hoathis/Tests/mageekguy.atoum.phar';
-//require_once path.'/mageekguy.atoum.phar';
-
-include '/usr/local/lib/Hoathis/Tests/mocks/helloWorld.php';
+require_once __DIR__.'/../mageekguy.atoum.phar';
+require_once __DIR__.'/../mocks/helloWorld.php';
 
 use \mageekguy\atoum;
 use \vendor\project;

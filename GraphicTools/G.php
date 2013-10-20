@@ -1,11 +1,11 @@
 <?php
 
-namespace Hoathis\Svg {
+namespace Hoathis\GraphicTools {
 	
 require_once __DIR__.'/Inode.php';
 
 /**
- * Class \Hoathis\Svg\Group.
+ * Class \Hoathis\GraphicTools\G.
  *
  * Concrete class that represents a composite element
  * for Composite pattern.
@@ -15,7 +15,7 @@ require_once __DIR__.'/Inode.php';
  * @license    New BSD License
  */
 
-class G extends \Hoathis\Svg\Inode {
+class G extends \Hoathis\GraphicTools\Inode {
 	
 	/**
      * Main constructor

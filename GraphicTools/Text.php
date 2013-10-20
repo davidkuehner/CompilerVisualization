@@ -1,11 +1,11 @@
 <?php
 
-namespace Hoathis\Svg {
+namespace Hoathis\GraphicTools {
 	
 require_once __DIR__.'/Graphic.php';
 
 /**
- * Class \Hoathis\Svg\Text.
+ * Class \Hoathis\GraphicTools\Text.
  *
  * Concrete class that represents a text element
  * for Composite pattern.
@@ -60,7 +60,7 @@ class Text  extends Graphic {
      * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
      * @return  string
      */
-    public function addElement ( \Hoathis\Svg\Graphic $element ) {
+    public function addElement ( \Hoathis\GraphicTools\Graphic $element ) {
 		 
 	}
 	
