@@ -34,10 +34,9 @@ abstract class Inode extends \Hoathis\GraphicTools\Graphic {
 	}
 	
 	/**
-     * Build an g element.
+     * Builds an inode element.
      *
      * @access  public
-     * @param   string		$isRoot     Unsused, kept to match parent
      * @return  string
      */
      public function build () {
