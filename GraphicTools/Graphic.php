@@ -27,7 +27,6 @@ abstract class Graphic  {
      * Build an svg element.
      *
      * @access  public
-     * @param   boolean		$isRoot     Is this element the svg root ?
      * @return  string
      */
     abstract public function build ();

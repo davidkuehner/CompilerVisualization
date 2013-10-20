@@ -2,7 +2,8 @@
 
 namespace Hoathis\GraphicTools {
 	
-require_once __DIR__.'/Graphic.php';
+require_once __DIR__.'/Inode.php';
+require_once __DIR__.'/TextNode.php';
 
 /**
  * Class \Hoathis\GraphicTools\Text.
@@ -15,54 +16,23 @@ require_once __DIR__.'/Graphic.php';
  * @license    New BSD License
  */
 
-class Text  extends Graphic {
-	
-	/**
-	 * Text content 
-	 */
-	private $text ;
-	
+class Text  extends \Hoathis\GraphicTools\Inode {
+
 	/**
      * Main constructor
      *
      * @param   string		$text     The content to display
      */
 	function __construct($text) {
-        $this->text = $text;
+
         /* 1em is hardcoded because it's absolutly 
          * nessesary to display the text. It can be overrided.
          */ 
         $this->attributes = [ 'y' => '1em' ];
+        $this->elements = array();
+        $textNode = new \Hoathis\GraphicTools\TextNode( $text );
+        $this->addElement( $textNode );
     }
-	
-    /**
-     * Build an svg text element.
-     *
-     * @access  public
-     * @param   boolean		$isRoot     Unsused, kept to match parent
-     * @return  string
-     */
-     public function build ( $isRoot=NUll ) {
-		$builder = '<text'; 
-		foreach ( $this->attributes as $key => $value ) {
-			$builder .= ' ' . $key . '="' . $value . '"'; 
-		}
-		$builder .= '>';
-		$builder .= $this->text;
-		$builder .= '</text>';
-		return $builder;
-	 }
-    
-    /**
-     * Add a child svg element.
-     *
-     * @access  public
-     * @param   \Hoathis\Svg\Graphic	$element     The child element to add.
-     * @return  string
-     */
-    public function addElement ( \Hoathis\GraphicTools\Graphic $element ) {
-		 
-	}
 	
 }
 
