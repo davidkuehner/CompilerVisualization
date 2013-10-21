@@ -8,8 +8,8 @@ require_once __DIR__.'/TextNode.php';
 /**
  * Class \Hoathis\GraphicTools\Text.
  *
- * Concrete class that represents a text element
- * for Composite pattern.
+ * Concrete class that represents a svg text and 
+ * primitives element for Composite pattern.
  *
  * @author     David Kühner <david.kuhner@he-arc.ch>
  * @copyright  Copyright © 2007-2013 David Kühner

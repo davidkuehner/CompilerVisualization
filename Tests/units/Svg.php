@@ -53,20 +53,20 @@ class Svg extends atoum\test
 		
 		$attrib = array("foo"=>"bar","han"=>"solo");
 		$svg = new gt\Svg();
-		$svg->setAtributes($attrib);
+		$svg->setAttributes($attrib);
 		$this->string( $svg->build() )->isEqualTo( $assert );
 		
 		$assert = '<svg foo="bar" han="leia" even="odds"></svg>';
 		
 		$attrib = array("even"=>"odds", "han"=>"leia");
-		$svg->setAtributes($attrib);
+		$svg->setAttributes($attrib);
 		$this->string( $svg->build() )->isEqualTo( $assert );
 		
 		$assert = '<svg xmlns="' . gt\Svg::XML_XMLNS . '" version="' . gt\Svg::XML_VERSION . '"></svg>';
         
         $svg = new gt\svg();
 		$attrib = array( "xmlns"=> gt\Svg::XML_XMLNS ,"version"=> gt\Svg::XML_VERSION );
-		$svg->setAtributes($attrib);
+		$svg->setAttributes($attrib);
         $this->string( $svg->build() )->isEqualTo( $assert );
 	}
  }

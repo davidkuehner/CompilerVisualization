@@ -54,13 +54,13 @@ class G extends atoum\test
 		
 		$attrib = array("foo"=>"bar","han"=>"solo");
 		$group = new gt\G();
-		$group->setAtributes($attrib);
+		$group->setAttributes($attrib);
 		
 		$this->string( $group->build() )->isEqualTo( $assert );
 		
 		$assert = '<g foo="bar" han="leia" even="odds"></g>';
 		$attrib = array("even"=>"odds", "han"=>"leia");
-		$group->setAtributes($attrib);
+		$group->setAttributes($attrib);
 		
 		$this->string( $group->build() )->isEqualTo( $assert );
 	}

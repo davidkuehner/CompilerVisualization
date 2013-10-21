@@ -37,7 +37,7 @@ abstract class Graphic  {
      * @access  public
      * @param   array	$attributes     "key"=>"value" as "width"=>"20px"
      */
-    public function setAtributes ( array $attributes ) {
+    public function setAttributes ( array $attributes ) {
 		$this->attributes = array_merge($this->attributes, $attributes);
 	}
 	

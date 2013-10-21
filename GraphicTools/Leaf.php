@@ -38,6 +38,8 @@ abstract class Leaf extends \Hoathis\GraphicTools\Graphic {
 			$builder .= ' ' . $key . '="' . $value . '"'; 
 		}
 		$builder .= ' />';
+		
+		return $builder;
 	 }
 
 }
