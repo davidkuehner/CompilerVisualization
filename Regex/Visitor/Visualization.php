@@ -58,6 +58,13 @@ namespace Hoathis\Regex\Visitor {
  */
 
 class Visualization implements \Hoa\Visitor\Visit {
+	
+	 /**
+     * Graphic
+     *
+     * @var \Hoathis\GraphicTools\Graphic
+     */
+    protected $_Graphic;
 
     /**
      * Visit an element.
@@ -69,22 +76,41 @@ class Visualization implements \Hoa\Visitor\Visit {
      * @return  mixed
      */
     public function visit ( \Hoa\Visitor\Element $element,
-                            &$handle = null, $eldnah = null ) {
+                            &$handle = null, $eldnah = null ) {							
 
         $id = $element->getId();
 
-        var_dump($id);
-        var_dump($element);
-
+        //var_dump($element);
+		//echo $id;
+		
         switch($id) {
 
             case '#expression':
-                return $element->getChild(0)->accept($this, $handle, $eldnah);
-              break;
+                //return $element->getChild(0)->accept($this, $handle, $eldnah);
+                $this->_Graphic = new \Hoathis\GraphicTools\Svg();
+                break;
+			case 'token':
+				$value = $element->getValue();
+				$this->_Graphic = new \Hoathis\GraphicTools\Token($value['value']);
+				break;
         }
-
-        return;
+        $this->_Graphic->setAttributes( array("class"=>$id));
+        
+        foreach($element->getChildren() as $child) {
+			$visitorElement = $child->accept($this, $handle, $eldnah);
+            $this->_Graphic->addElement($visitorElement);
+		}
+        
+        if ($id == '#expression') {
+			echo $this->_Graphic->build();
+		} else {
+			return $this->_Graphic;
+		}
     }
+    
+    public function getGraphic() {
+		return $this->_Graphic;
+	}
 }
 
 }
