@@ -21,7 +21,8 @@ class Rect  extends \Hoathis\GraphicTools\Leaf {
      * Main constructor
      */
 	function __construct() {
-
+		
+		$this->attributes = [ 'style'=>'stroke:rgb(255,0,0);stroke-width:2' ];
         $this->attributes = array();
         $this->elements = array();
     }

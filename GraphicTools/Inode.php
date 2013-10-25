@@ -34,6 +34,16 @@ abstract class Inode extends \Hoathis\GraphicTools\Graphic {
 	}
 	
 	/**
+     * Returns the list of elements
+     *
+     * @access  public
+     * @return  \Hoathis\GraphicTools\Graphic array
+     */
+	public function getElements () {
+		return $this->elements;
+	}
+	
+	/**
      * Builds an inode element.
      *
      * @access  public

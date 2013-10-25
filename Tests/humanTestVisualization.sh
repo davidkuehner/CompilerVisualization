@@ -9,4 +9,3 @@ echo $(echo $regex | hoa compiler:pp --visitor-class Hoathis.Regex.Visitor.Visua
 echo '</body></html>' >> index.html
 
 firefox ./index.html 2> /dev/null
-rm ./index.html

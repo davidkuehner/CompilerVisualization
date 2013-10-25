@@ -64,7 +64,7 @@ class Visualization implements \Hoa\Visitor\Visit {
      *
      * @var \Hoathis\GraphicTools\Graphic
      */
-    protected $_Graphic;
+    //protected $_Graphic;
 
     /**
      * Visit an element.
@@ -77,40 +77,38 @@ class Visualization implements \Hoa\Visitor\Visit {
      */
     public function visit ( \Hoa\Visitor\Element $element,
                             &$handle = null, $eldnah = null ) {							
-
+		$Graphic = null;
         $id = $element->getId();
-
-        //var_dump($element);
-		//echo $id;
-		
+        		
+		// This switch may be replaced by an eval() implementation
         switch($id) {
 
             case '#expression':
-                //return $element->getChild(0)->accept($this, $handle, $eldnah);
-                $this->_Graphic = new \Hoathis\GraphicTools\Svg();
+                $Graphic = new \Hoathis\GraphicTools\Expression();
                 break;
+            case '#class':
+				$Graphic = new \Hoathis\GraphicTools\Klass(); // K for now, will be prefixed
+				break;
 			case 'token':
 				$value = $element->getValue();
-				$this->_Graphic = new \Hoathis\GraphicTools\Token($value['value']);
+				$Graphic = new \Hoathis\GraphicTools\Token($value['value']);
 				break;
         }
-        $this->_Graphic->setAttributes( array("class"=>$id));
+        $Graphic->setAttributes( array("class"=>$id) );
+        
+        
         
         foreach($element->getChildren() as $child) {
 			$visitorElement = $child->accept($this, $handle, $eldnah);
-            $this->_Graphic->addElement($visitorElement);
+            $Graphic->addElement($visitorElement);
 		}
-        
+		        
         if ($id == '#expression') {
-			echo $this->_Graphic->build();
+			echo $Graphic->build();
 		} else {
-			return $this->_Graphic;
+			return $Graphic;
 		}
     }
-    
-    public function getGraphic() {
-		return $this->_Graphic;
-	}
 }
 
 }
