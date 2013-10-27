@@ -41,7 +41,7 @@ class Klass extends \Hoathis\GraphicTools\Inode {
 	function __construct() {
 		$this->margin = 1;
 		$this->height = -$this->margin; // cause we have an extra margin at the bottom
-		$this->width = 0;
+		$this->width = $this->margin * 2; // case we have both right and left paths
 		$this->outY = 0;
 		$this->representation = new \Hoathis\GraphicTools\Svg();    
     }
@@ -56,9 +56,6 @@ class Klass extends \Hoathis\GraphicTools\Inode {
      */
      public function build () {
 		$childIndex = 0;
-		
-		// Add the paths in and out
-		$this->width += $this->margin *2;
 		
 		// Distribute the token along the height
 		foreach( $this->getElements() as $element ) {
@@ -115,7 +112,7 @@ class Klass extends \Hoathis\GraphicTools\Inode {
      * @param   \Hoathis\GraphicTools\Graphic	$element     The child element to add.
      */
     public function addElement( \Hoathis\GraphicTools\Graphic $element ) {
-		$this->width += $this->width < $element->getWidth() ? $element->getWidth(): 0; // get bigger only if the newbe is bigger
+		$this->width = $element->getWidth() + $this->margin * 2;
 		$this->height += $element->getHeight() + $this->margin;
 		$this->outY = $this->height / 2;
 		$this->representation->addElement( $element );

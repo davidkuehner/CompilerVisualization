@@ -86,12 +86,15 @@ class Visualization implements \Hoa\Visitor\Visit {
             case '#expression':
                 $Graphic = new \Hoathis\GraphicTools\Expression();
                 break;
+            case '#quantification':
+                $Graphic = new \Hoathis\GraphicTools\Quantification();
+                break;
             case '#class':
 				$Graphic = new \Hoathis\GraphicTools\Klass(); // K for now, will be prefixed
 				break;
 			case 'token':
 				$value = $element->getValue();
-				$Graphic = new \Hoathis\GraphicTools\Token($value['value']);
+				$Graphic = new \Hoathis\GraphicTools\Token($value['token'], $value['value']);
 				break;
         }
         $Graphic->setAttributes( array("class"=>$id) );

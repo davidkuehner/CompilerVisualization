@@ -23,6 +23,8 @@ class Token  extends \Hoathis\GraphicTools\Inode {
 	 */
 	private $representation;
 	
+	private $tokenType;
+	
 	/**
 	 * Height of the token in em for now
 	 */
@@ -38,11 +40,10 @@ class Token  extends \Hoathis\GraphicTools\Inode {
      *
      * @param   string		$text     The content to display
      */
-	function __construct($text) {
-		//echo " > new token=$text ";
-		// Hardcoded for the proof of concept -> will be dynamic in final implementation
+	function __construct($tokenType, $text) {
 		$this->representation = new \Hoathis\GraphicTools\Svg();
 		$this->height = $this->width =2;
+		$this->tokenType = $tokenType;
 
         $textCell = new \Hoathis\GraphicTools\Text( $text );
         $textCell->setAttributes( array( "height"=>"1em", "y"=>"1.3em",  "x"=>"1em", "text-anchor"=>"middle") );
@@ -52,7 +53,6 @@ class Token  extends \Hoathis\GraphicTools\Inode {
         
         $this->representation->addElement( $rect );
         $this->representation->addElement( $textCell );
-        
     }
     
     /**
@@ -64,7 +64,8 @@ class Token  extends \Hoathis\GraphicTools\Inode {
      * @return  string
      */
      public function build () {
-		return $this->representation->build();
+		return $this->tokenType == 'literal' ? $this->representation->build() : '' ;
+		//return $this->representation->build();
 	 }
 	 
 	 /**

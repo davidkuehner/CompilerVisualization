@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo 'Type your regex :'
 read regex
 regex=$(printf $regex | tr -d '\n')
 
