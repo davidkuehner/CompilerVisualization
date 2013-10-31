@@ -43,6 +43,12 @@ from('Hoa')
  */
 -> import('Visitor.Visit');
 
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\*
+ */
+->import('GraphicTools.*');
+
 }
 
 namespace Hoathis\Regex\Visitor {
