@@ -58,7 +58,8 @@ class Quantification extends \Hoathis\GraphicTools\Inode {
      */
      public function build () {
 		 $child = $this->getElements()[0]; // first element of the quantification is the core
-		 $type = array_pop( $this->getElements() ); // second element is the token that define the quantification
+		 $elements = $this->getElements(); // second element is the token that define the quantification
+		 $type = array_pop( $elements );
 		 
 		 // can be siplify by reuse previous points
 		 $a = array('x' => 0, 'y' => $child->getHeight()/2 + $this->margin);
