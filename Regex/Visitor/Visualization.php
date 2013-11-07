@@ -90,17 +90,17 @@ class Visualization implements \Hoa\Visitor\Visit {
         switch($id) {
 
             case '#expression':
-                $Graphic = new \Hoathis\GraphicTools\Expression();
+                $Graphic = new \Hoathis\Regex\Visitor\Key\Expression();
                 break;
             case '#quantification':
-                $Graphic = new \Hoathis\GraphicTools\Quantification();
+                $Graphic = new \Hoathis\Regex\Visitor\Key\Quantification();
                 break;
             case '#class':
-				$Graphic = new \Hoathis\GraphicTools\Klass(); // K for now, will be prefixed
+				$Graphic = new \Hoathis\Regex\Visitor\Key\Klass(); // K for now, will be prefixed
 				break;
 			case 'token':
 				$value = $element->getValue();
-				$Graphic = new \Hoathis\GraphicTools\Token($value['token'], $value['value']);
+				$Graphic = new \Hoathis\Regex\Visitor\Token\Token($value['token'], $value['value']);
 				break;
         }
         $Graphic->setAttributes( array("class"=>$id) );
