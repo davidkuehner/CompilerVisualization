@@ -2,7 +2,11 @@
 
 namespace Hoathis\GraphicTools {
 	
-require_once __DIR__.'/Graphic.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\Graphic
+ */
+->import('GraphicTools.Graphic');
 
 
 /**
@@ -16,7 +20,7 @@ require_once __DIR__.'/Graphic.php';
  * @license    New BSD License
  */
 
-abstract class Inode extends \Hoathis\GraphicTools\Graphic {
+abstract class Inode extends Graphic {
 	
 	/**
 	 * List of elements in the group 
@@ -29,7 +33,7 @@ abstract class Inode extends \Hoathis\GraphicTools\Graphic {
      * @access  public
      * @param   \Hoathis\GraphicTools\Graphic	$element     The child element to add.
      */
-    public function addElement ( \Hoathis\GraphicTools\Graphic $element ) {
+    public function addElement( Graphic $element ) {
 		$this->elements[] = $element;
 	}
 	
