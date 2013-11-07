@@ -1,8 +1,13 @@
 <?php
 
-namespace Hoathis\GraphicTools {
+namespace Hoathis\Regex\Visitor\Key {
 	
-require_once __DIR__.'/Inode.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\*
+ */
+->import('GraphicTools.Inode')
+->import('GraphicTools.Svg');
 
 /**
  * Class \Hoathis\GraphicTools\Klass.
@@ -61,7 +66,6 @@ class Quantification extends \Hoathis\GraphicTools\Inode {
 		 $elements = $this->getElements(); // second element is the token that define the quantification
 		 $type = array_pop( $elements );
 		 
-		 // can be siplify by reuse previous points
 		 $a = array('x' => 0, 'y' => $child->getHeight()/2 + $this->margin);
 		 $b = array('x' => $this->margin, 'y' => $a['y']);
 		 $c = array('x' => $b['x'], 'y' => 0);

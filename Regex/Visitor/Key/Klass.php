@@ -1,8 +1,12 @@
 <?php
 
-namespace Hoathis\GraphicTools {
+namespace Hoathis\Regex\Visitor\Key {
 	
-require_once __DIR__.'/Inode.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\*
+ */
+->import('GraphicTools.Inode');
 
 /**
  * Class \Hoathis\GraphicTools\Klass.

@@ -1,13 +1,20 @@
 <?php
 
-namespace Hoathis\GraphicTools {
-	
-require_once __DIR__.'/Inode.php';
-require_once __DIR__.'/Text.php';
-require_once __DIR__.'/Rect.php';
+namespace Hoathis\Regex\Visitor\Token {
+
 
 /**
- * Class \Hoathis\GraphicTools\Token.
+ * \Hoathis\GraphicTools\Inode
+ * \Hoathis\GraphicTools\Text
+ * \Hoathis\GraphicTools\Rect
+ */
+from('Hoathis')
+->import('GraphicTools.Inode')
+->import('GraphicTools.Text')
+->import('GraphicTools.Rect');
+
+/**
+ * Class \Hoathis\Regex\Visitor\Token.
  *
  * Concrete class that represents a token.
  *
