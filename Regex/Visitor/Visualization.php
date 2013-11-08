@@ -84,25 +84,26 @@ class Visualization implements \Hoa\Visitor\Visit {
     public function visit ( \Hoa\Visitor\Element $element,
                             &$handle = null, $eldnah = null ) {							
 		$Graphic = null;
-        $id = $element->getId();
+        $id = str_replace( '#', '' , $element->getId() );
         $GraphicCreator = \Hoathis\GraphicTools\SvgCreator::getInstance();
+        
         		
         switch($id) {
-            case '#expression':
+            case 'expression':
                 $Graphic = $GraphicCreator->createExpression();
                 break;
-            case '#quantification':
+            case 'quantification':
                 $Graphic = new \Hoathis\Regex\Visitor\Key\Quantification();
                 break;
-            case '#class':
-				$Graphic = new \Hoathis\Regex\Visitor\Key\Klass(); // K for now, will be prefixed
+            case 'class':
+				$Graphic = $GraphicCreator->createClass();
 				break;
 			case 'token':
 				$value = $element->getValue();
 				$Graphic = new \Hoathis\Regex\Visitor\Token\Token($value['token'], $value['value']);
 				break;
         }
-        $Graphic->setAttribute( "class", str_replace( '#', '' ,$id ) );
+        $Graphic->setAttribute( "class", $id );
         
         
         
@@ -112,7 +113,7 @@ class Visualization implements \Hoa\Visitor\Visit {
             $Graphic->addElement($visitorElement);
 		}
 		        
-        if ($id == '#expression') {
+        if ($id == 'expression') {
 			echo $Graphic->build();
 		} else {
 			return $Graphic;
