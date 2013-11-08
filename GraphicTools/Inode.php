@@ -1,18 +1,21 @@
 <?php
 
-namespace Hoathis\GraphicTools {
-	
+namespace {
+
 from('Hoathis')
 /**
  * \Hoathis\GraphicTools\Graphic
  */
-->import('GraphicTools.Graphic');
+->import('GraphicTools.Graphic')
+->import('Regex.Visitor.Buildable');
+}
 
+namespace Hoathis\GraphicTools {
 
 /**
  * Class \Hoathis\GraphicTools\Inode.
  *
- * Abstract class that represents containers elements 
+ * Abstract class that represents composite elements 
  * for Composite pattern.
  *
  * @author     David Kühner <david.kuhner@he-arc.ch>
@@ -20,12 +23,20 @@ from('Hoathis')
  * @license    New BSD License
  */
 
-abstract class Inode extends Graphic {
+abstract class Inode extends Graphic implements \Hoathis\Regex\Visitor\Buildable {
 	
 	/**
 	 * List of elements in the group 
 	 */
 	private $elements;
+	
+	/**
+     * Main constructor
+     */
+	function __construct() {
+		parent::__construct();
+		$this->elements = array();
+	}
 	
 	/**
      * Add a child svg element.
@@ -77,6 +88,46 @@ abstract class Inode extends Graphic {
 		$builder .= '</' . $className . '>';
 		return $builder;
 	 }
+	 
+	 
+	 
+	 
+	 
+	 /**
+     * Adds the lines between the in/out of the buildable element and each in/out of the childrens.
+     *
+     * @access  public
+     */
+    public function addPaths ( ) {}
+    
+    /**
+     * Adds a bypass to the buildable element
+     *
+     * @access  public
+     */
+    public function addByPath ( ) {}
+    
+    /**
+     * Adds a loop over the buildable element.
+     *
+     * @access  public
+     */
+    public function addLoop ( ) {}
+    
+    /**
+     * Adds a label to the loop.
+     *
+     * @access  private
+     */
+    public function addLoopLabel ( ) {}
+    
+    /**
+     * Adds a child of type buildable to the buildable element.
+     *
+     * @access  public
+     */
+    public function addChild( \Hoathis\Regex\Visitor\Buildable $child) {}
+	 
 	
 }
 
