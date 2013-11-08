@@ -85,12 +85,11 @@ class Visualization implements \Hoa\Visitor\Visit {
                             &$handle = null, $eldnah = null ) {							
 		$Graphic = null;
         $id = $element->getId();
+        $GraphicCreator = \Hoathis\GraphicTools\SvgCreator::getInstance();
         		
-		// This switch may be replaced by an eval() implementation
         switch($id) {
-
             case '#expression':
-                $Graphic = new \Hoathis\Regex\Visitor\Key\Expression();
+                $Graphic = $GraphicCreator->createExpression();
                 break;
             case '#quantification':
                 $Graphic = new \Hoathis\Regex\Visitor\Key\Quantification();
@@ -103,7 +102,8 @@ class Visualization implements \Hoa\Visitor\Visit {
 				$Graphic = new \Hoathis\Regex\Visitor\Token\Token($value['token'], $value['value']);
 				break;
         }
-        $Graphic->setAttributes( array("class"=>$id) );
+        $Graphic->setAttribute( "class", str_replace( '#', '' ,$id ) );
+        
         
         
         
