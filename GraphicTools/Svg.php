@@ -20,13 +20,6 @@ class Svg  extends \Hoathis\GraphicTools\Inode {
 	
 	const XML_XMLNS = 'http://www.w3.org/2000/svg';
 	const XML_VERSION = '1.1';
-	
-	/**
-     * Main constructor
-     */
-	function __construct() {
-		$this->elements = array();
-		$this->attributes = array();
-	}
+
 }
 }
