@@ -48,14 +48,20 @@ interface Buildable {
      *
      * @access  private
      */
-    private function addLoopLabel ( );
+    public function addLoopLabel ( );
     
     /**
      * Adds a child of type buildable to the buildable element.
      *
      * @access  public
      */
-    public function addChild( Hoathis\Regex\Visitor\Buildable child);
+    public function addChild( \Hoathis\Regex\Visitor\Buildable $child);
+    
+    /**
+     * In test
+     */
+     public function setAttribute( $key, $value );
+	 public function getAttribute( $key );
 }
 
 }

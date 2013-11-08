@@ -16,18 +16,6 @@ namespace Hoathis\Regex\Visitor {
 interface GraphicCreator {
 	
 	/**
-	 * Contains the instance
-	 */
-	private static $_instance;
-	
-	/**
-     * Constructor is private to match the singleton.
-     *
-     * @access  private
-     */
-    private function __construct ( );
-	
-	/**
      * Return a GraphicCreator. 
      * If it already exists, returns it. Else creates it and then return it. 
      * Purpose : match the singleton.
@@ -44,7 +32,7 @@ interface GraphicCreator {
      * @param   string  $value      Value of the token.
      * @return Hoathis\Regex\Visitor\Buildable
      */
-     public function createToken( String $token, String $value );
+     public function createToken( $token, $value );
      
      /**
       * Creates and returns a Buildable Expression element.
