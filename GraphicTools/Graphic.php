@@ -22,6 +22,10 @@ abstract class Graphic  {
 	 * Xml attributes
 	 */
 	protected $attributes ;
+	
+	function __construct ( ) {
+		$this->attributes = array();
+	}
 
     /**
      * Build an svg element.
@@ -31,7 +35,7 @@ abstract class Graphic  {
      */
     abstract public function build ();
     
-     /**
+    /**
      * Add an attribute.
      *
      * @access  public
@@ -41,6 +45,71 @@ abstract class Graphic  {
 		$this->attributes = array_merge($this->attributes, $attributes);
 	}
 	
+	 /**
+     * Debug function
+     */
+	public function getAttributes() {
+		return $this->attributes;
+	}
+	
+	/**
+     * Special access methods, in test
+     */
+    public function setAttribute( $key, $value ) {
+	 $this->attributes[$key] = $value;
+	}
+	public function getAttribute( $key ) {
+	if ( array_key_exists( $key, $this->attributes ) )
+		return $this->attributes[$key];
+	return null;
+	}
+	 
+	 
+	public function getWidthAndUnits() {
+		return $this->getSplittedValueUnits( 'width' ); 
+	}
+	public function getHeightAndUnits() {
+		return $this->getSplittedValueUnits( 'height' ); 
+	}
+	public function getWidth() {
+		return $this->getValueWithoutUnits( 'width' );
+	}
+	public function getHeight() {
+		return $this->getValueWithoutUnits( 'height' );
+	}
+	public function setWidth($value, $units) {
+		$this->setAttribute( 'width', $value . $units );
+	}
+	public function setHeight($value, $units) {
+		$this->setAttribute( 'height', $value . $units );
+	}
+	
+	/**
+	 * Privates functions
+	 */
+	 
+	private function getValueWithoutUnits( $key ) {
+		$valueAndUnits = $this->getSplittedValueUnits( $key );
+		if ( $valueAndUnits !== null )
+			return $valueAndUnits[0];
+		return $valueAndUnits; // null
+	}
+	
+	private function getSplittedValueUnits( $key ) {
+		$valueWithUnit = $this->getAttribute( $key );
+		if ( $valueWithUnit !== null ){
+			return $this->splitValueUnits( $valueWithUnit );	}
+		return null; // or 0 ?
+	}
+	
+	private function splitValueUnits( $valueWithUnit ) {
+		$pattern = "/^[0-9]+|\w+$/";
+		preg_match_all($pattern, $valueWithUnit, $matches);
+		$result[0] = intval($matches[0][0]);
+		$result[1] = $matches[0][1];
+		return $result;
+	}
+
 }
 
 }
