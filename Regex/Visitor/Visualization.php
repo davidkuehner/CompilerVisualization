@@ -93,14 +93,17 @@ class Visualization implements \Hoa\Visitor\Visit {
                 $Graphic = $GraphicCreator->createExpression();
                 break;
             case 'quantification':
-                $Graphic = new \Hoathis\Regex\Visitor\Key\Quantification();
+                $Graphic = $GraphicCreator->createQuantification();
                 break;
+            case 'concatenation':
+				$Graphic = $GraphicCreator->createConcatenation();
+				break;
             case 'class':
 				$Graphic = $GraphicCreator->createClass();
 				break;
 			case 'token':
 				$value = $element->getValue();
-				$Graphic = new \Hoathis\Regex\Visitor\Token\Token($value['token'], $value['value']);
+				$Graphic = $GraphicCreator->createToken($value['token'], $value['value']);
 				break;
         }
         $Graphic->setAttribute( "class", $id );
@@ -110,7 +113,7 @@ class Visualization implements \Hoa\Visitor\Visit {
         
         foreach($element->getChildren() as $child) {
 			$visitorElement = $child->accept($this, $handle, $eldnah);
-            $Graphic->addElement($visitorElement);
+            $Graphic->addChild($visitorElement);
 		}
 		        
         if ($id == 'expression') {
