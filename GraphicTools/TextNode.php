@@ -27,6 +27,7 @@ class TextNode extends \Hoathis\GraphicTools\Graphic {
      * Main constructor
      */
 	function __construct( $text ) {
+		parent::__construct();
 		$this->text = $text;
 	}
 	

@@ -24,6 +24,7 @@ class Text  extends \Hoathis\GraphicTools\Inode {
      * @param   string		$text     The content to display
      */
 	function __construct($text) {
+		parent::__construct();
 
         /* 1em is hardcoded because it's absolutly 
          * nessesary to display the text. It can be overrided.
@@ -31,7 +32,7 @@ class Text  extends \Hoathis\GraphicTools\Inode {
         $this->attributes = [ 'y' => '1em' ];
         $this->elements = array();
         $textNode = new \Hoathis\GraphicTools\TextNode( $text );
-        $this->addElement( $textNode );
+        $this->addChild( $textNode );
     }
 	
 }
