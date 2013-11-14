@@ -34,7 +34,7 @@ interface Buildable {
      *
      * @access  public
      */
-    public function addByPath ( );
+    public function addBypass ( );
     
     /**
      * Adds a loop over the buildable element.
@@ -48,7 +48,7 @@ interface Buildable {
      *
      * @access  private
      */
-    public function addLoopLabel ( );
+    public function addLoopLabel ( $label );
     
     /**
      * Adds a child of type buildable to the buildable element.
