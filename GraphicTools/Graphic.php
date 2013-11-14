@@ -13,7 +13,7 @@ namespace Hoathis\GraphicTools {
  * @license    New BSD License
  */
 
-abstract class Graphic  {
+abstract class Graphic  implements \Hoathis\Regex\Visitor\Buildable {
 	
 	const XML_STANDALONE_VERSION = '<?xml version="1.0" standalone="no"?>';
 	const XML_STANDALONE_DTD = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
@@ -84,6 +84,20 @@ abstract class Graphic  {
 		$this->setAttribute( 'height', $value . $units );
 	}
 	
+	
+	/**
+	 *	Buildable unused methods	 
+	 */
+    public function addPaths ( ) {}
+
+    public function addBypass ( ) {}
+
+    public function addLoop ( ) {}
+
+    public function addLoopLabel ( $label ) {}
+
+    public function addChild( \Hoathis\Regex\Visitor\Buildable $child) {}
+	
 	/**
 	 * Privates functions
 	 */
@@ -92,20 +106,20 @@ abstract class Graphic  {
 		$valueAndUnits = $this->getSplittedValueUnits( $key );
 		if ( $valueAndUnits !== null )
 			return $valueAndUnits[0];
-		return $valueAndUnits; // null
+		return 0;
 	}
 	
 	private function getSplittedValueUnits( $key ) {
 		$valueWithUnit = $this->getAttribute( $key );
 		if ( $valueWithUnit !== null ){
 			return $this->splitValueUnits( $valueWithUnit );	}
-		return null; // or 0 ?
+		return null;
 	}
 	
 	private function splitValueUnits( $valueWithUnit ) {
-		$pattern = "/^[0-9]+|\w+$/";
+		$pattern = "/^-?[0-9]+|\w+$/";
 		preg_match_all($pattern, $valueWithUnit, $matches);
-		$result[0] = intval($matches[0][0]);
+		$result[0] = floatval($matches[0][0]);
 		$result[1] = $matches[0][1];
 		return $result;
 	}
