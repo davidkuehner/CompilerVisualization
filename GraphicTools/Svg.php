@@ -1,9 +1,16 @@
 <?php
 
-namespace Hoathis\GraphicTools {
+namespace {
 	
-require_once __DIR__.'/Inode.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\Graphic
+ */
+->import('GraphicTools.Inode');
 
+}
+
+namespace Hoathis\GraphicTools {
 
 /**
  * Class \Hoathis\GraphicTools\Svg.
@@ -20,6 +27,6 @@ class Svg  extends \Hoathis\GraphicTools\Inode {
 	
 	const XML_XMLNS = 'http://www.w3.org/2000/svg';
 	const XML_VERSION = '1.1';
-
+	
 }
 }
