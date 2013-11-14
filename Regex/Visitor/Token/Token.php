@@ -58,8 +58,8 @@ class Token  extends \Hoathis\GraphicTools\Inode {
         $rect = new \Hoathis\GraphicTools\Rect();
         $rect->setAttributes( array( "height"=> $this->height."em", "width"=> $this->width."em", "fill"=>"red" ) );
         
-        $this->representation->addElement( $rect );
-        $this->representation->addElement( $textCell );
+        $this->representation->addChild( $rect );
+        $this->representation->addChild( $textCell );
     }
     
     /**
