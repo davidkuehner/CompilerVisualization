@@ -34,6 +34,24 @@ class Text  extends \Hoathis\GraphicTools\Inode {
         $textNode = new \Hoathis\GraphicTools\TextNode( $text );
         $this->addChild( $textNode );
     }
+    
+    /**
+     * Get the textNode text value
+     * 
+     * @return string The value 
+     */
+     public function getText() {
+		return $this->elements[0]->getText();
+	 }
+	 
+	 /**
+     * Set the textNode text value
+     * 
+     * @param string The value 
+     */
+     public function setText( $text ) {
+		 $this->elements[0]->setText( $text );
+	 }
 	
 }
 

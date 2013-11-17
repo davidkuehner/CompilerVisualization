@@ -40,6 +40,24 @@ class TextNode extends \Hoathis\GraphicTools\Graphic {
      public function build () {
 		 return $this->text;
 	 }
+	 
+	 /**
+     * Get the textNode text value
+     * 
+     * @return string The value 
+     */
+     public function getText() {
+		 return $this->text;
+	 }
+	 
+	 /**
+     * Set the textNode text value
+     * 
+     * @return string The value 
+     */
+     public function setText( $text ) {
+		 $this->text = $text;
+	 }
 	
 }
 
