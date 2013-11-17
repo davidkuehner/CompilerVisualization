@@ -68,5 +68,12 @@ interface GraphicCreator {
       * @return Hoathis\Regex\Visitor\Buildable
       */
      public function createAlternation();
+     
+     /**
+      * Creates and returns an Buildable Range element.
+      * 
+      * @return Hoathis\Regex\Visitor\Buildable
+      */
+     public function createRange();
 }
 }
