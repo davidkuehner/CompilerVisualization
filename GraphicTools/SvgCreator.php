@@ -79,15 +79,22 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
      */
 	public function createToken( $token, $value ) {
 		 
+		$display = str_replace('_',' ',$token);
 		switch ($token) {
 			case "literal":
 				$token = $this->createLiteralToken( $value );
 				break;
 			case "zero_or_one":
-				$token = new Svg();
+				$token = new NullNode();
+				break;
+			case "n_to_m":
+				preg_match_all( '/[0-9]+/', $value, $match );
+				$display = str_replace('n', $match[0][0], $display);
+				$display = str_replace('m', $match[0][1], $display);
+				$token =  $this->createDefaultToken( $display );
 				break;
 			default:
-				$token =  $this->createDefaultToken( $token );
+				$token =  $this->createDefaultToken( $display );
 			}
 		return $token;
 	}
@@ -150,6 +157,19 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
      */
     public function createAlternation() {
 	}
+	
+	/**
+      * Creates and returns an Buildable Range element.
+      * 
+      * @return Hoathis\Regex\Visitor\Buildable
+      */
+     public function createRange() {
+		 $range = new \Hoathis\GraphicTools\Svg();
+		 $range->setHorizontalLayout();
+		 $range->setMargin( 0 );
+		 return $range;
+		 
+	 }
 	
 	private function createLiteralToken( $value ) {
 		$literal = new \Hoathis\GraphicTools\Svg();
