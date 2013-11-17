@@ -72,31 +72,52 @@ abstract class Inode extends Graphic {
      */
     public function addChild( \Hoathis\Regex\Visitor\Buildable $child) {
 		
-		if( $this->isLayoutVertical ) {
+		// if we have two consecutive token children -> concat them
+		$previous = end($this->elements);
+		if( ( $this->getAttribute( 'class' ) == 'range' || $this->getAttribute( 'class' ) == 'concatenation' )
+			&&$child->getAttribute( 'class' ) == 'token'
+			&& $previous != FALSE
+			&& $previous->getAttribute( 'class' ) == 'token' ) {
+				
+			// simple concatenation
+			$prevText = end( $previous->getElements() );
+			$curText = end( $child->getElements() );
+			$newText = $prevText->getText();
+			// if current context is range
+			if ( $this->getAttribute( 'class' ) == 'range' ) 
+				$newText .= '-';
+			$newText .= $curText->getText();
+			$prevText->setText( $newText );
+		
+		// if not, do standard work
+		} else {
 			
-			$this->setHeight( $this->getHeight() + $child->getHeight() + $this->margin, SvgCreator::UNITS );
-			if ( $this->getWidth() < $child->getWidth() ) {
-				$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
+			if( $this->isLayoutVertical ) {
+				
+				$this->setHeight( $this->getHeight() + $child->getHeight() + $this->margin, SvgCreator::UNITS );
+				if ( $this->getWidth() < $child->getWidth() ) {
+					$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
+				}
+				
+			} else if( $this->isLayoutHorizontal ) {
+				
+				if ( $this->getHeight() < $child->getHeight() ) {
+					$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
+				}
+				$this->setWidth( $this->getWidth() + $child->getWidth() + $this->margin, SvgCreator::UNITS );
+				
+			} else if( $this->isLayoutWrapping ) {
+	
+				if ( $this->getHeight() < $child->getHeight() ) {
+					$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
+				}
+				if ( $this->getWidth() < $child->getWidth() ) {
+					$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
+				}
+				
 			}
-			
-		} else if( $this->isLayoutHorizontal ) {
-			
-			if ( $this->getHeight() < $child->getHeight() ) {
-				$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
-			}
-			$this->setWidth( $this->getWidth() + $child->getWidth() + $this->margin, SvgCreator::UNITS );
-			
-		} else if( $this->isLayoutWrapping ) {
-
-			if ( $this->getHeight() < $child->getHeight() ) {
-				$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
-			}
-			if ( $this->getWidth() < $child->getWidth() ) {
-				$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
-			}
-			
+			$this->elements[] = $child;
 		}
-		$this->elements[] = $child;
 	}
 		
 	/**
@@ -154,7 +175,6 @@ abstract class Inode extends Graphic {
 		if( $this->hasLoop ) {
 			$this->buildLoop();
 		}
-		
 		
 		// Adds children elements
 		foreach ( (array)$this->elements as $element ) {
@@ -217,16 +237,18 @@ abstract class Inode extends Graphic {
 	 
 	 private function buildHorizontalLayout() {
 		$childIndex = 0;
+		$offset = 0; // width took by the previous element on x
 
 		// Distribute the token along the height
 		foreach( $this->getElements() as $element ) {
 			$childWidth = $element->getWidth();
-			$childXPos = $childIndex*$childWidth + $childIndex*$this->margin;
+			$childXPos = $offset + $childIndex*$this->margin;
 			$u = SvgCreator::UNITS; // units
 			
 			$element->setAttributes( array( 'y'=> $this->getHeight()/2 - $element->getHeight()/2 . $u, 'x'=> $childXPos . $u ) );
 			
 			++$childIndex;
+			$offset += $childWidth + $this->margin;
 		}
 	 }
 	 
