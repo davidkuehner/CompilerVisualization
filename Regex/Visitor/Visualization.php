@@ -101,6 +101,9 @@ class Visualization implements \Hoa\Visitor\Visit {
             case 'class':
 				$Graphic = $GraphicCreator->createClass();
 				break;
+			case 'range':
+				$Graphic = $GraphicCreator->createRange();
+				break;
 			case 'token':
 				$value = $element->getValue();
 				$Graphic = $GraphicCreator->createToken($value['token'], $value['value']);
