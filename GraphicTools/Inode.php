@@ -275,32 +275,45 @@ abstract class Inode extends Graphic {
 
 		$u = SvgCreator::UNITS; // units
 				
-		$a = array('x' => 0, 'y' => $child->getHeight()/2 + $this->margin);
-		$b = array('x' => $this->margin, 'y' => $a['y']);
-		$c = array('x' => $b['x'], 'y' => 0);
-		$d = array('x' => $child->getWidth() + $this->margin, 'y' => 0);
-		$e = array('x' => $d['x'], 'y' => $a['y']);
-		$f = array('x' => $e['x'] + $this->margin, 'y' => $a['y']);
+		$p = array('x' => 0, 'y' => $child->getHeight()/2 + $this->margin);  //in
 		
-		$ab = new \Hoathis\GraphicTools\Line();
-		$ab->setAttributes( array( 'x1'=>$a['x'].$u, 'y1'=>$a['y'].$u, 'x2'=>$b['x'].$u, 'y2'=>$b['y'].$u ) );
-		$this->addElement( $ab );
+		$a = array('x' => $this->margin, 'y' => $p['y']);
+		$b = array('x' => $a['x']/2, 'y' => $p['y']);
+		$c = array('x' => $a['x']/2, 'y' => $p['y']-$a['x']/2);
+		$d = array('x' => $a['x']/2, 'y' => $a['x']/2);
+		$e = array('x' => $a['x']/2, 'y' => 1);
+		$f = array('x' => $a['x'], 'y' => 1);
+		$g = array('x' => $child->getWidth() + $this->margin, 'y' => 1);
+		$h = array('x' => $g['x'] + $this->margin/2, 'y' => 1);
+		$i = array('x' => $h['x'], 'y' => $d['y']);
+		$j = array('x' => $h['x'], 'y' => $c['y']);
+		$k = array('x' => $h['x'], 'y' => $a['y']);
+		$l = array('x' => $g['x'], 'y' => $a['y']);
 		
-		$bc = new \Hoathis\GraphicTools\Line();
-		$bc->setAttributes( array( 'x1'=>$b['x'].$u, 'y1'=>$b['y'].$u, 'x2'=>$c['x'].$u, 'y2'=>$c['y'].$u ) );
-		$this->addElement( $bc );
+		$q = array('x' => $child->getWidth() + $this->margin * 2, 'y' => $p['y']); // out
 		
-		$cd = new \Hoathis\GraphicTools\Line();
-		$cd->setAttributes( array( 'x1'=>$c['x'].$u, 'y1'=>$c['y'].$u, 'x2'=>$d['x'].$u, 'y2'=>$d['y'].$u ) );
-		$this->addElement( $cd );
+		$pa = new \Hoathis\GraphicTools\Line();
+		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
+		$pa->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$this->addElement( $pa );
 		
-		$de = new \Hoathis\GraphicTools\Line();
-		$de->setAttributes( array( 'x1'=>$d['x'].$u, 'y1'=>$d['y'].$u, 'x2'=>$e['x'].$u, 'y2'=>$e['y'].$u ) );
-		$this->addElement( $de );
+		$path = new \Hoathis\GraphicTools\Path();
+		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$path->setAttributes( array( 'd' => 'M'.$a['x'].','.$a['y'] 
+										.	'C'.$b['x'].','.$b['y'] . ' ' . $b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
+										.	'L'.$d['x'].','.$d['y']
+										.	'C'.$e['x'].','.$e['y'] . ' ' . $e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
+										.	'L'.$g['x'].','.$g['y']
+										.	'C'.$h['x'].','.$h['y'] . ' ' . $h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
+										.	'L'.$j['x'].','.$j['y']
+										.	'C'.$k['x'].','.$k['y'] . ' ' . $k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
+										) );
+		$this->addElement( $path );
 		
-		$ef = new \Hoathis\GraphicTools\Line();
-		$ef->setAttributes( array( 'x1'=>$e['x'].$u, 'y1'=>$e['y'].$u, 'x2'=>$f['x'].$u, 'y2'=>$f['y'].$u ) );
-		$this->addElement( $ef );
+		$lq = new \Hoathis\GraphicTools\Line();
+		$lq->setAttributes( array( 'x1'=>$l['x'].$u, 'y1'=>$l['y'].$u, 'x2'=>$q['x'].$u, 'y2'=>$q['y'].$u ) );
+		$lq->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$this->addElement( $lq );
 		
 		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));
 		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin . $u, 'y'=>$this->margin/2 . $u ));
