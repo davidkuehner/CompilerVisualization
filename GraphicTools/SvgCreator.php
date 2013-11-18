@@ -12,9 +12,7 @@ namespace Hoathis\GraphicTools {
 from('Hoathis')
 ->import('Regex.Visitor.GraphicCreator')
 ->import('Regex.Visitor.Buildable')
-->import('GraphicTools.Svg')
-->import('GraphicTools.SvgHLayout');
-
+->import('GraphicTools.Svg');
 
 /**
  * Class \Hoathis\GraphicTools\SvgCreator.
@@ -36,12 +34,27 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	/*
 	 * Units (em/px/...)
 	 */
-	const UNITS = 'em';
+	const UNITS = 'px';
 	
 	/*
 	 * Global margin between elements
 	 */
-	const MARGIN = 1;
+	const MARGIN = 5;
+	
+	/*
+	 * Font family
+	 */
+	 const FONT_FAMILY = 'FreeSans';
+	 
+	 /*
+	 * Font file path in the GraphicTools library
+	 */
+	 const FONT_PATH = '/FreeSans.ttf';
+	 
+	 /*
+	  * Font size (better if it's in px)
+	  */
+	 const FONT_SIZE = 14; 
 	
 	/**
      * Constructor is private to match the singleton.
@@ -172,18 +185,17 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 }
 	
 	private function createLiteralToken( $value ) {
-		$literal = new \Hoathis\GraphicTools\Svg();
-		$literal->setHeight( self::MARGIN*2, self::UNITS );
-		$literal->setWidth( self::MARGIN*2, self::UNITS );
-		
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
-		$textCell->setHeight( self::MARGIN, self::UNITS );
-		$textCell->setAttributes( array( "y"=>(self::MARGIN*1.3).self::UNITS,  "x"=>self::MARGIN.self::UNITS, "text-anchor"=>"middle") );
+		$textCell->setAttributes( array( "text-anchor"=>"middle" ) );
 		
 		$rect = new \Hoathis\GraphicTools\Rect();
-		$rect->setHeight( self::MARGIN*2, self::UNITS );
-		$rect->setWidth( self::MARGIN*2, self::UNITS );
-		$rect->setAttributes( array( "fill"=>"red" ) );
+		$rect->setHeight( $textCell->getHeight() + self::MARGIN*2, self::UNITS );
+		$rect->setWidth( $textCell->getWidth() + self::MARGIN*2, self::UNITS );
+		$rect->setAttributes( array( "fill"=>"lightblue" ) );
+		
+		$literal = new \Hoathis\GraphicTools\Svg();
+		$literal->setHeight( $rect->getHeight(), self::UNITS );
+		$literal->setWidth( $rect->getWidth(), self::UNITS );
 		
 		$literal->addChild( $rect );
 		$literal->addChild( $textCell );
@@ -193,8 +205,8 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	
 	private function createDefaultToken( $value ) {
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
-		$textCell->setHeight( self::MARGIN, self::UNITS );
-		$textCell->setAttributes( array( "y"=>(self::MARGIN*1.3).self::UNITS,  "x"=>self::MARGIN.self::UNITS, "text-anchor"=>"middle", "font-size" => "0.5em") );
+		$textCell->setAttributes( array( "text-anchor"=>"middle" ) );
+		//$textCell->setAttributes( array( "y"=>(self::MARGIN*1.3).self::UNITS,  "x"=>self::MARGIN.self::UNITS, "text-anchor"=>"middle", "font-size" => "0.5em") );
 		
 		return $textCell;
 	}

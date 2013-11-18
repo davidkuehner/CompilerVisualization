@@ -41,6 +41,10 @@ abstract class Leaf extends \Hoathis\GraphicTools\Graphic {
 		
 		return $builder;
 	 }
+	 
+	 public function setWidthRecursively( $value, $unit ) {
+		 $this->setWidth( $value, $unit );
+	 }
 
 }
 

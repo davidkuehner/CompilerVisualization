@@ -81,6 +81,7 @@ abstract class Inode extends Graphic {
 				
 			// simple concatenation
 			$prevText = end( $previous->getElements() );
+			$prevRect = reset( $previous->getElements() );
 			$curText = end( $child->getElements() );
 			$newText = $prevText->getText();
 			// if current context is range
@@ -88,6 +89,9 @@ abstract class Inode extends Graphic {
 				$newText .= '-';
 			$newText .= $curText->getText();
 			$prevText->setText( $newText );
+			$prevRect->setWidth( $prevText->getWidth() + SvgCreator::MARGIN * 2, SvgCreator::UNITS );
+			$this->setWidth( $prevRect->getWidth(), SvgCreator::UNITS );
+			$previous->setWidth( $prevRect->getWidth(), SvgCreator::UNITS );
 		
 		// if not, do standard work
 		} else {
@@ -96,8 +100,12 @@ abstract class Inode extends Graphic {
 				
 				$this->setHeight( $this->getHeight() + $child->getHeight() + $this->margin, SvgCreator::UNITS );
 				if ( $this->getWidth() < $child->getWidth() ) {
+					$this->setWidthRecursively( $child->getWidth() , SvgCreator::UNITS );
 					$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
+				} else {
+					$child->setWidthRecursively( $this->getWidth() -  $this->margin * 2, SvgCreator::UNITS );
 				}
+				
 				
 			} else if( $this->isLayoutHorizontal ) {
 				
@@ -186,6 +194,13 @@ abstract class Inode extends Graphic {
 		//$builder .= "<!-- debug: " . $className. " -->";
 		
 		return $builder;
+	 }
+	 
+	 public function setWidthRecursively( $value, $unit ) {
+		 $this->setWidth( $value, $unit );
+		 foreach( (array)$this->elements as $child ) {
+			$child->setWidthRecursively( $value, $unit );
+		 }
 	 }
 	 
 	 private function buildOpenerTag( $className ) {
