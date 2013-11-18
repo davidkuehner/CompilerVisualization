@@ -40,6 +40,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * Global margin between elements
 	 */
 	const MARGIN = 5;
+	const BIG_MARGIN = 20;
 	
 	/*
 	 * Font family
@@ -55,6 +56,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	  * Font size (better if it's in px)
 	  */
 	 const FONT_SIZE = 14; 
+	 const FONT_SIZE_LEGEND = 10; 
 	
 	/**
      * Constructor is private to match the singleton.
@@ -104,10 +106,10 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 				preg_match_all( '/[0-9]+/', $value, $match );
 				$display = str_replace('n', $match[0][0], $display);
 				$display = str_replace('m', $match[0][1], $display);
-				$token =  $this->createDefaultToken( $display );
+				$token = $this->createDefaultToken( $display );
 				break;
 			default:
-				$token =  $this->createDefaultToken( $display );
+				$token = $this->createDefaultToken( $display );
 			}
 		return $token;
 	}
@@ -133,8 +135,8 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		$class = new Svg();
 		$class->setVerticalLayout();
 		$class->addPaths();
-		$class->setMargin( self::MARGIN );
-		$class->setHeight( -self::MARGIN, self::UNITS );
+		$class->setMargin( self::BIG_MARGIN );
+		$class->setHeight( -self::BIG_MARGIN, self::UNITS );
 		return $class;
 	}
      
@@ -147,7 +149,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		$quantification = new Svg();
 		$quantification->setWrappingLayout();
 		$quantification->addLoop();
-		$quantification->setMargin( self::MARGIN );
+		$quantification->setMargin( self::BIG_MARGIN );
 		return $quantification;
 	}
      
@@ -205,9 +207,8 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	
 	private function createDefaultToken( $value ) {
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
-		$textCell->setAttributes( array( "text-anchor"=>"middle" ) );
-		//$textCell->setAttributes( array( "y"=>(self::MARGIN*1.3).self::UNITS,  "x"=>self::MARGIN.self::UNITS, "text-anchor"=>"middle", "font-size" => "0.5em") );
-		
+		$textCell->setAttributes( array( 'text-anchor'=>'middle', 'font-size' => ( Self::FONT_SIZE_LEGEND ) . Self::UNITS ) );
+		$textCell->setWidth( 0, Self::UNITS ); // little hack to avoid quantification to take the width of the label
 		return $textCell;
 	}
 	

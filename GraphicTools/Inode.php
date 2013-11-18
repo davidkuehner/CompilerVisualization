@@ -75,13 +75,14 @@ abstract class Inode extends Graphic {
 		// if we have two consecutive token children -> concat them
 		$previous = end($this->elements);
 		if( ( $this->getAttribute( 'class' ) == 'range' || $this->getAttribute( 'class' ) == 'concatenation' )
-			&&$child->getAttribute( 'class' ) == 'token'
+			&& $child->getAttribute( 'class' ) == 'token'
 			&& $previous != FALSE
 			&& $previous->getAttribute( 'class' ) == 'token' ) {
 				
 			// simple concatenation
 			$prevText = end( $previous->getElements() );
 			$prevRect = reset( $previous->getElements() );
+			$prevRectWidth = $prevRect->getWidth(); // store for later
 			$curText = end( $child->getElements() );
 			$newText = $prevText->getText();
 			// if current context is range
@@ -89,8 +90,9 @@ abstract class Inode extends Graphic {
 				$newText .= '-';
 			$newText .= $curText->getText();
 			$prevText->setText( $newText );
+			// adapt the widths
 			$prevRect->setWidth( $prevText->getWidth() + SvgCreator::MARGIN * 2, SvgCreator::UNITS );
-			$this->setWidth( $prevRect->getWidth(), SvgCreator::UNITS );
+			$this->setWidth( $this->getWidth() - $prevRectWidth + $prevRect->getWidth(), SvgCreator::UNITS );
 			$previous->setWidth( $prevRect->getWidth(), SvgCreator::UNITS );
 		
 		// if not, do standard work
@@ -301,7 +303,7 @@ abstract class Inode extends Graphic {
 		$this->addElement( $ef );
 		
 		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));
-		$label->setAttributes( array( 'x'=>$this->margin*2+$child->getWidth() . $u, 'y'=>$this->margin.$u ));
+		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin . $u, 'y'=>$this->margin/2 . $u ));
 		
 	 }
 	 
