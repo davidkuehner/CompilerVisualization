@@ -308,6 +308,15 @@ abstract class Inode extends Graphic {
 										.	'L'.$j['x'].','.$j['y']
 										.	'C'.$k['x'].','.$k['y'] . ' ' . $k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
 										) );
+
+		$arrowUp = new \Hoathis\GraphicTools\Path();
+		$arrowUp->setAttributes( array( 'd' => 'M'.$h['x'].','.$k['y']/2 . '  l5,10 l-10,0 ', 'style' => 'fill:rgb(150,150,150)' ));
+
+		$arrowDown = new \Hoathis\GraphicTools\Path();
+		$arrowDown->setAttributes( array( 'd' => 'M'.$e['x'].','.$b['y']/2 . '  l5,-10 l-10,0 ', 'style' => 'fill:rgb(150,150,150)' ));
+		
+		$this->addElement( $arrowUp );
+		$this->addElement( $arrowDown );
 		$this->addElement( $path );
 		
 		$lq = new \Hoathis\GraphicTools\Line();
@@ -320,8 +329,7 @@ abstract class Inode extends Graphic {
 		
 	 }
 	 
-	 
-	 
+		
 	 /**
      * Adds the lines between the in/out of the buildable element and each in/out of the childrens.
      *
