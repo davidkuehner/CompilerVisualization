@@ -259,10 +259,10 @@ abstract class Inode extends Graphic {
 				$pathIn = new \Hoathis\GraphicTools\Path();
 				$pathOut = new \Hoathis\GraphicTools\Path();
 				
-				$pathIn->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+				$pathIn->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 				$pathIn->setAttributes( array( 'd' 	=>  'M'.$a['x'].','.$a['y'] 
 													.	'C'.($b['x']-$offset).','.$b['y'] . ' ' . ($c['x']+$offset).','.$c['y'] . ' ' . $d['x'].','.$d['y'] ));
-				$pathOut->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+				$pathOut->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 				$pathOut->setAttributes( array( 'd' 	=>  'M'.$e['x'].','.$e['y'] 
 														.	'C'.($f['x']-$offset).','.$f['y'] . ' ' . ($g['x']+$offset).','.$g['y'] . ' ' . $h['x'].','.$h['y'] ));
 													
@@ -336,11 +336,11 @@ abstract class Inode extends Graphic {
 		
 		$pa = new \Hoathis\GraphicTools\Line();
 		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
-		$pa->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$pa->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $pa );
 		
 		$path = new \Hoathis\GraphicTools\Path();
-		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$path->setAttributes( array( 'd' => ' M'.$a['x'].','.$a['y'] 
 										.	' Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
 										.	' L'.$d['x'].','.$d['y']
@@ -352,14 +352,14 @@ abstract class Inode extends Graphic {
 										) );
 
 		$arrowRight = new \Hoathis\GraphicTools\Path();
-		$arrowRight->setAttributes( array( 'd' => 'M'.($l['x']/2).','.$e['y'] . '  l-10,5 l0,-10 ', 'style' => 'fill:rgb(150,150,150)' ));
+		$arrowRight->setAttributes( array( 'd' => 'M'.($l['x']/2).','.$e['y'] . '  l-10,5 l0,-10 ', 'style' => 'fill:'.SvgCreator::ARROW_COLOR ));
 		
-		$this->addElement( $arrowRight );
 		$this->addElement( $path );
+		$this->addElement( $arrowRight );
 		
 		$lq = new \Hoathis\GraphicTools\Line();
 		$lq->setAttributes( array( 'x1'=>$l['x'].$u, 'y1'=>$l['y'].$u, 'x2'=>$q['x'].$u, 'y2'=>$q['y'].$u ) );
-		$lq->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$lq->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $lq );
 		
 		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));
@@ -391,11 +391,11 @@ abstract class Inode extends Graphic {
 		
 		$pa = new \Hoathis\GraphicTools\Line();
 		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
-		$pa->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$pa->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $pa );
 		
 		$path = new \Hoathis\GraphicTools\Path();
-		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$path->setAttributes( array( 'd' => ' M'.$a['x'].','.$a['y'] 
 										.	' Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
 										.	' L'.$d['x'].','.$d['y']
@@ -407,18 +407,18 @@ abstract class Inode extends Graphic {
 										) );
 
 		$arrowUp = new \Hoathis\GraphicTools\Path();
-		$arrowUp->setAttributes( array( 'd' => 'M'.$h['x'].','.$k['y']/2 . '  l5,10 l-10,0 ', 'style' => 'fill:rgb(150,150,150)' ));
+		$arrowUp->setAttributes( array( 'd' => 'M'.$h['x'].','.$k['y']/2 . '  l5,10 l-10,0 ', 'style' => 'fill:'.SvgCreator::ARROW_COLOR ));
 
 		$arrowDown = new \Hoathis\GraphicTools\Path();
-		$arrowDown->setAttributes( array( 'd' => 'M'.$e['x'].','.$b['y']/2 . '  l5,-10 l-10,0 ', 'style' => 'fill:rgb(150,150,150)' ));
+		$arrowDown->setAttributes( array( 'd' => 'M'.$e['x'].','.$b['y']/2 . '  l5,-10 l-10,0 ', 'style' => 'fill:'.SvgCreator::ARROW_COLOR ));
 		
+		$this->addElement( $path );
 		$this->addElement( $arrowUp );
 		$this->addElement( $arrowDown );
-		$this->addElement( $path );
 		
 		$lq = new \Hoathis\GraphicTools\Line();
 		$lq->setAttributes( array( 'x1'=>$l['x'].$u, 'y1'=>$l['y'].$u, 'x2'=>$q['x'].$u, 'y2'=>$q['y'].$u ) );
-		$lq->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$lq->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $lq );
 		
 		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));

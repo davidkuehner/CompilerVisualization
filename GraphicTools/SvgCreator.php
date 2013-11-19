@@ -43,20 +43,16 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	const BIG_MARGIN = 20;
 	
 	/*
-	 * Font family
+	 * Style constants
 	 */
 	 const FONT_FAMILY = 'FreeSans';
-	 
-	 /*
-	 * Font file path in the GraphicTools library
-	 */
-	 const FONT_PATH = '/FreeSans.ttf';
-	 
-	 /*
-	  * Font size (better if it's in px)
-	  */
+	 const FONT_PATH = '/FreeSans.ttf'; //F ont file path in the GraphicTools library
 	 const FONT_SIZE = 14; 
 	 const FONT_SIZE_LEGEND = 10; 
+	 const PATH_COLOR = 'gray';
+	 const TOKEN_COLOR = 'lightgray';
+	 const ARROW_COLOR = 'lightgray';
+	 const TOKEN_ROUND_CORNER = 5;
 	
 	/**
      * Constructor is private to match the singleton.
@@ -188,12 +184,13 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	
 	private function createLiteralToken( $value ) {
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
-		$textCell->setAttributes( array( "text-anchor"=>"middle" ) );
+		$textCell->setAttributes( array( 'text-anchor'=>'middle' ) );
 		
 		$rect = new \Hoathis\GraphicTools\Rect();
 		$rect->setHeight( $textCell->getHeight() + self::MARGIN*2, self::UNITS );
 		$rect->setWidth( $textCell->getWidth() + self::MARGIN*2, self::UNITS );
-		$rect->setAttributes( array( "fill"=>"lightblue" ) );
+		$rect->setAttributes( array( 'fill'=> SvgCreator::TOKEN_COLOR ) );
+		$rect->setAttributes( array( 'rx'=>SvgCreator::TOKEN_ROUND_CORNER, 'ry'=>SvgCreator::TOKEN_ROUND_CORNER ) );
 		
 		$literal = new \Hoathis\GraphicTools\Svg();
 		$literal->setHeight( $rect->getHeight(), self::UNITS );
