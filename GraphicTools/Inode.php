@@ -183,7 +183,7 @@ abstract class Inode extends Graphic {
 		// Construct a loop, can be bypass or loop. It's defined by
 		// the token type of the second child.
 		if( $this->hasLoop ) {
-			$this->buildLoop();
+			$this->buildLoopAndBypass();
 		}
 		
 		// Construct a loop, can be bypass or loop. It's defined by
@@ -293,6 +293,22 @@ abstract class Inode extends Graphic {
 			$offset += $childWidth + $this->margin;
 		}
 	 }
+	 
+	 private function buildLoopAndBypass() {
+		$label = $this->elements[1];
+		
+		if( is_a($label, '\Hoathis\GraphicTools\NullNode') ) {
+			$this->buildBypass();
+		} else if ( $label->getText() == 'zero or more' ) {
+			$this->buildBypass();
+			$this->buildLoop();
+		} else {
+			$this->buildLoop();
+		}
+		
+		
+	 }
+	 
 	 private function buildBypass() {
 		$child = $this->elements[0]; // first element of the quantification is the core
 		$label = $this->elements[1]; // second element is the token that define the quantification
@@ -316,7 +332,7 @@ abstract class Inode extends Graphic {
 		
 		$j = array('x' => $h['x'], 'y' => $c['y']);
 		$k = array('x' => $h['x'], 'y' => $a['y']);
-		$l = array('x' => $h['x']+$this->margin, 'y' => $a['y']);
+		$l = array('x' => $h['x']+$this->margin/2, 'y' => $a['y']);
 		
 		$pa = new \Hoathis\GraphicTools\Line();
 		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
@@ -325,14 +341,14 @@ abstract class Inode extends Graphic {
 		
 		$path = new \Hoathis\GraphicTools\Path();
 		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
-		$path->setAttributes( array( 'd' => 'M'.$a['x'].','.$a['y'] 
-										.	'Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
-										.	'L'.$d['x'].','.$d['y']
-										.	'Q'.$e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
-										.	'L'.$g['x'].','.$g['y']
-										.	'Q'.$h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
-										.	'L'.$j['x'].','.$j['y']
-										.	'Q'.$k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
+		$path->setAttributes( array( 'd' => ' M'.$a['x'].','.$a['y'] 
+										.	' Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
+										.	' L'.$d['x'].','.$d['y']
+										.	' Q'.$e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
+										.	' L'.$g['x'].','.$g['y']
+										.	' Q'.$h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
+										.	' L'.$j['x'].','.$j['y']
+										.	' Q'.$k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
 										) );
 
 		$arrowRight = new \Hoathis\GraphicTools\Path();
@@ -380,14 +396,14 @@ abstract class Inode extends Graphic {
 		
 		$path = new \Hoathis\GraphicTools\Path();
 		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
-		$path->setAttributes( array( 'd' => 'M'.$a['x'].','.$a['y'] 
-										.	'Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
-										.	'L'.$d['x'].','.$d['y']
-										.	'Q'.$e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
-										.	'L'.$g['x'].','.$g['y']
-										.	'Q'.$h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
-										.	'L'.$j['x'].','.$j['y']
-										.	'Q'.$k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
+		$path->setAttributes( array( 'd' => ' M'.$a['x'].','.$a['y'] 
+										.	' Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
+										.	' L'.$d['x'].','.$d['y']
+										.	' Q'.$e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
+										.	' L'.$g['x'].','.$g['y']
+										.	' Q'.$h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
+										.	' L'.$j['x'].','.$j['y']
+										.	' Q'.$k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
 										) );
 
 		$arrowUp = new \Hoathis\GraphicTools\Path();
