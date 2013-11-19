@@ -235,15 +235,34 @@ abstract class Inode extends Graphic {
 					
 			// Adds path if nessesary
 			if( $this->hasPath ) {
-				$pathYchild = $childYPos + $childHeight / 2;
-				$outY = $this->getHeight() / 2;
 
-				$pathIn = new \Hoathis\GraphicTools\Line();
-				$pathOut = new \Hoathis\GraphicTools\Line();
-				$pathIn->setAttributes( array( 'x1'=>'0', 'y1'=>$outY.$u, 'x2'=>$this->margin.$u, 'y2'=>$pathYchild.$u ) );
-				$pathOut->setAttributes( array( 'x1'=>( $this->getWidth() - $this->margin).$u, 'y1'=>$pathYchild.$u, 'x2'=>$this->getWidth().$u, 'y2'=>$outY.$u ) );
+				$offset = 10; // adjust the path curve
+				
+				// Path in points
+				$a = array('x' => 0, 'y' => $this->getHeight() / 2);
+				$b = array('x' => $this->margin, 'y' => $a['y']);
+				$c = array('x' => $a['x'], 'y' => $childYPos + $childHeight / 2);
+				$d = array('x' => $b['x'], 'y' => $c['y']);
+				
+				// Path out points
+				$e = array('x' => $this->getWidth() - $this->margin, 'y' => $childYPos + $childHeight / 2);
+				$f = array('x' => $this->getWidth(), 'y' => $e['y']);
+				$g = array('x' => $e['x'], 'y' => $this->getHeight() / 2);
+				$h = array('x' => $f['x'], 'y' => $g['y']);
+				
+				$pathIn = new \Hoathis\GraphicTools\Path();
+				$pathOut = new \Hoathis\GraphicTools\Path();
+				
+				$pathIn->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+				$pathIn->setAttributes( array( 'd' 	=>  'M'.$a['x'].','.$a['y'] 
+													.	'C'.($b['x']-$offset).','.$b['y'] . ' ' . ($c['x']+$offset).','.$c['y'] . ' ' . $d['x'].','.$d['y'] ));
+				$pathOut->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+				$pathOut->setAttributes( array( 'd' 	=>  'M'.$e['x'].','.$e['y'] 
+														.	'C'.($f['x']-$offset).','.$f['y'] . ' ' . ($g['x']+$offset).','.$g['y'] . ' ' . $h['x'].','.$h['y'] ));
+													
 				$this->addElement( $pathIn );
 				$this->addElement( $pathOut );
+				
 			}
 			
 			$element->setAttributes( array( 'y'=> $childYPos . $u, 'x'=> $this->margin.$u ) );
