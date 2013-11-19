@@ -319,13 +319,13 @@ abstract class Inode extends Graphic {
 		$path = new \Hoathis\GraphicTools\Path();
 		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
 		$path->setAttributes( array( 'd' => 'M'.$a['x'].','.$a['y'] 
-										.	'C'.$b['x'].','.$b['y'] . ' ' . $b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
+										.	'Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
 										.	'L'.$d['x'].','.$d['y']
-										.	'C'.$e['x'].','.$e['y'] . ' ' . $e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
+										.	'Q'.$e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
 										.	'L'.$g['x'].','.$g['y']
-										.	'C'.$h['x'].','.$h['y'] . ' ' . $h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
+										.	'Q'.$h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
 										.	'L'.$j['x'].','.$j['y']
-										.	'C'.$k['x'].','.$k['y'] . ' ' . $k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
+										.	'Q'.$k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
 										) );
 
 		$arrowUp = new \Hoathis\GraphicTools\Path();
