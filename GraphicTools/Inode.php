@@ -186,6 +186,12 @@ abstract class Inode extends Graphic {
 			$this->buildLoop();
 		}
 		
+		// Construct a loop, can be bypass or loop. It's defined by
+		// the token type of the second child.
+		if( $this->hasBypass ) {
+			$this->buildBypass();
+		}
+		
 		// Adds children elements
 		foreach ( (array)$this->elements as $element ) {
 				$builder .= $element->build();
@@ -286,6 +292,62 @@ abstract class Inode extends Graphic {
 			++$childIndex;
 			$offset += $childWidth + $this->margin;
 		}
+	 }
+	 private function buildBypass() {
+		$child = $this->elements[0]; // first element of the quantification is the core
+		$label = $this->elements[1]; // second element is the token that define the quantification
+
+		$u = SvgCreator::UNITS; // units
+				
+		$p = array('x' => $this->margin, 'y' => $child->getHeight()/2 + $this->margin);  //in
+		$q = array('x' => $child->getWidth() + $this->margin, 'y' => $p['y']); // out
+		
+		$a = array('x' => 0, 'y' => $p['y']);
+		$b = array('x' => $p['x']/2, 'y' => $p['y']);
+		$c = array('x' => $b['x'], 'y' => $p['y']+$p['x']/2);
+		
+		$d = array('x' => $b['x'], 'y' => $child->getHeight() + $this->margin);
+		$e = array('x' => $d['x'], 'y' => $d['y']+$this->margin/2);
+		$f = array('x' => $p['x'], 'y' => $e['y']);
+		
+		$g = array('x' => $q['x'], 'y' => $f['y']);
+		$h = array('x' => $g['x'] + $this->margin/2, 'y' => $f['y']);
+		$i = array('x' => $h['x'], 'y' => $d['y']);
+		
+		$j = array('x' => $h['x'], 'y' => $c['y']);
+		$k = array('x' => $h['x'], 'y' => $a['y']);
+		$l = array('x' => $h['x']+$this->margin, 'y' => $a['y']);
+		
+		$pa = new \Hoathis\GraphicTools\Line();
+		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
+		$pa->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$this->addElement( $pa );
+		
+		$path = new \Hoathis\GraphicTools\Path();
+		$path->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$path->setAttributes( array( 'd' => 'M'.$a['x'].','.$a['y'] 
+										.	'Q'.$b['x'].','.$b['y'] . ' ' . $c['x'].','.$c['y'] 
+										.	'L'.$d['x'].','.$d['y']
+										.	'Q'.$e['x'].','.$e['y'] . ' ' . $f['x'].','.$f['y'] 
+										.	'L'.$g['x'].','.$g['y']
+										.	'Q'.$h['x'].','.$h['y'] . ' ' . $i['x'].','.$i['y'] 
+										.	'L'.$j['x'].','.$j['y']
+										.	'Q'.$k['x'].','.$k['y'] . ' ' . $l['x'].','.$l['y']
+										) );
+
+		$arrowRight = new \Hoathis\GraphicTools\Path();
+		$arrowRight->setAttributes( array( 'd' => 'M'.($l['x']/2).','.$e['y'] . '  l-10,5 l0,-10 ', 'style' => 'fill:rgb(150,150,150)' ));
+		
+		$this->addElement( $arrowRight );
+		$this->addElement( $path );
+		
+		$lq = new \Hoathis\GraphicTools\Line();
+		$lq->setAttributes( array( 'x1'=>$l['x'].$u, 'y1'=>$l['y'].$u, 'x2'=>$q['x'].$u, 'y2'=>$q['y'].$u ) );
+		$lq->setAttributes( array( 'style'=>'stroke:rgb(150,150,150); stroke-width:2' ));
+		$this->addElement( $lq );
+		
+		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));
+		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin . $u, 'y'=>$this->margin/2 . $u ));
 	 }
 	 
 	 private function buildLoop() {
