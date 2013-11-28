@@ -108,6 +108,8 @@ class Visualization implements \Hoa\Visitor\Visit {
 				$value = $element->getValue();
 				$Graphic = $GraphicCreator->createToken($value['token'], $value['value']);
 				break;
+			default:
+				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
         }
         $Graphic->setAttribute( "class", $id );
         
