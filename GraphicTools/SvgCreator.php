@@ -96,12 +96,31 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 				$token = $this->createLiteralToken( $value );
 				break;
 			case "zero_or_one":
+			case "zero_or_one_lazy":
+			case "zero_or_one_possessive":
 				$token = new NullNode();
+				$token = $this->createDefaultToken( $display );
+				break;
+			case "exactly_n":
+			case "exactly_n_lazy":
+			case "exactly_n_possessive":
+				preg_match_all( '/[0-9]+/', $value, $match );
+				$display = str_replace('n', $match[0][0], $display);
+				$token = $this->createDefaultToken( $display );
 				break;
 			case "n_to_m":
+			case "n_to_m_lazy":
+			case "n_to_m_possessive":
 				preg_match_all( '/[0-9]+/', $value, $match );
 				$display = str_replace('n', $match[0][0], $display);
 				$display = str_replace('m', $match[0][1], $display);
+				$token = $this->createDefaultToken( $display );
+				break;
+			case "n_or_more":
+			case "n_or_more_lazy":
+			case "n_or_more_possessive":
+				preg_match_all( '/[0-9]+/', $value, $match );
+				$display = str_replace('n', $match[0][0], $display);
 				$token = $this->createDefaultToken( $display );
 				break;
 			default:

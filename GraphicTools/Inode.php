@@ -260,11 +260,11 @@ abstract class Inode extends Graphic {
 				$pathOut = new \Hoathis\GraphicTools\Path();
 				
 				$pathIn->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
-				$pathIn->setAttributes( array( 'd' 	=>  'M'.$a['x'].','.$a['y'] 
-													.	'C'.($b['x']-$offset).','.$b['y'] . ' ' . ($c['x']+$offset).','.$c['y'] . ' ' . $d['x'].','.$d['y'] ));
+				$pathIn->setAttributes( array( 'd' 	=>  ' M'.$a['x'].','.$a['y'] 
+													.	' C'.($b['x']-$offset).','.$b['y'] . ' ' . ($c['x']+$offset).','.$c['y'] . ' ' . $d['x'].','.$d['y'] ));
 				$pathOut->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
-				$pathOut->setAttributes( array( 'd' 	=>  'M'.$e['x'].','.$e['y'] 
-														.	'C'.($f['x']-$offset).','.$f['y'] . ' ' . ($g['x']+$offset).','.$g['y'] . ' ' . $h['x'].','.$h['y'] ));
+				$pathOut->setAttributes( array( 'd' 	=>  ' M'.$e['x'].','.$e['y'] 
+														.	' C'.($f['x']-$offset).','.$f['y'] . ' ' . ($g['x']+$offset).','.$g['y'] . ' ' . $h['x'].','.$h['y'] ));
 													
 				$this->addElement( $pathIn );
 				$this->addElement( $pathOut );
@@ -299,7 +299,9 @@ abstract class Inode extends Graphic {
 		
 		if( is_a($label, '\Hoathis\GraphicTools\NullNode') ) {
 			$this->buildBypass();
-		} else if ( $label->getText() == 'zero or more' ) {
+		} else if ( preg_match("/^zero or one/", $label->getText()) ) {
+			$this->buildBypass();
+		} else if ( preg_match("/^zero or/", $label->getText()) ) {
 			$this->buildBypass();
 			$this->buildLoop();
 		} else {
