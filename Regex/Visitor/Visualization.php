@@ -95,6 +95,9 @@ class Visualization implements \Hoa\Visitor\Visit {
             case 'quantification':
                 $Graphic = $GraphicCreator->createQuantification();
                 break;
+            case 'alternation':
+				$Graphic = $GraphicCreator->createAlternation();
+				break;
             case 'concatenation':
 				$Graphic = $GraphicCreator->createConcatenation();
 				break;

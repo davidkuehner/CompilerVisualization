@@ -49,6 +49,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 const FONT_PATH = '/FreeSans.ttf'; //F ont file path in the GraphicTools library
 	 const FONT_SIZE = 14; 
 	 const FONT_SIZE_LEGEND = 10; 
+	 const FONT_SIZE_UNIT = 'px';
 	 const PATH_COLOR = 'gray';
 	 const TOKEN_COLOR = 'lightgray';
 	 const ARROW_COLOR = 'lightgray';
@@ -186,6 +187,12 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
      * @return Hoathis\Regex\Visitor\Buildable
      */
     public function createAlternation() {
+		$class = new Svg();
+		$class->setVerticalLayout();
+		$class->addPaths();
+		$class->setMargin( self::BIG_MARGIN );
+		$class->setHeight( -self::BIG_MARGIN, self::UNITS );
+		return $class;
 	}
 	
 	/**

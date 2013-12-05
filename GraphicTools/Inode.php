@@ -101,17 +101,17 @@ abstract class Inode extends Graphic {
 			if( $this->isLayoutVertical ) {
 				
 				$this->setHeight( $this->getHeight() + $child->getHeight() + $this->margin, SvgCreator::UNITS );
-				if ( $this->getWidth() < $child->getWidth() ) {
-					$this->setWidthRecursively( $child->getWidth() , SvgCreator::UNITS );
+				if ( $this->getWidth() < $child->getWidth() + $this->margin * 2 ) {
+					//$this->setWidthRecursively( $child->getWidth() , SvgCreator::UNITS );
 					$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
 				} else {
-					$child->setWidthRecursively( $this->getWidth() -  $this->margin * 2, SvgCreator::UNITS );
+					//$child->setWidthRecursively( $this->getWidth() -  $this->margin * 2, SvgCreator::UNITS );
 				}
 				
 				
 			} else if( $this->isLayoutHorizontal ) {
 				
-				if ( $this->getHeight() < $child->getHeight() ) {
+				if ( $this->getHeight() < $child->getHeight() + $this->margin * 2 ) {
 					$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
 				}
 				$this->setWidth( $this->getWidth() + $child->getWidth() + $this->margin, SvgCreator::UNITS );
@@ -233,16 +233,17 @@ abstract class Inode extends Graphic {
 		 $childIndex = 0;
 
 		// Distribute the token along the height
-		foreach( $this->getElements() as $element ) {
-			$childHeight = $element->getHeight();
+		foreach( $this->getElements() as $child ) {
+			$childWidth = $child->getWidth();
+			$childHeight = $child->getHeight();
 			$childYPos = $childIndex*$childHeight + $childIndex*$this->margin;
+			$childIndention  = $this->getWidth() - $child->getWidth() - 2*$this->margin; // The diff between the child width and the parent width, used to center the child
 			$u = SvgCreator::UNITS; // units
 			
-					
 			// Adds path if nessesary
 			if( $this->hasPath ) {
 
-				$offset = 10; // adjust the path curve
+				$curveOffset = 10; // adjust the path curve
 				
 				// Path in points
 				$a = array('x' => 0, 'y' => $this->getHeight() / 2);
@@ -261,17 +262,34 @@ abstract class Inode extends Graphic {
 				
 				$pathIn->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 				$pathIn->setAttributes( array( 'd' 	=>  ' M'.$a['x'].','.$a['y'] 
-													.	' C'.($b['x']-$offset).','.$b['y'] . ' ' . ($c['x']+$offset).','.$c['y'] . ' ' . $d['x'].','.$d['y'] ));
+													.	' C'.($b['x']-$curveOffset).','.$b['y'] . ' ' . ($c['x']+$curveOffset).','.$c['y'] . ' ' . $d['x'].','.$d['y'] ));
 				$pathOut->setAttributes( array( 'fill' => 'none', 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 				$pathOut->setAttributes( array( 'd' 	=>  ' M'.$e['x'].','.$e['y'] 
-														.	' C'.($f['x']-$offset).','.$f['y'] . ' ' . ($g['x']+$offset).','.$g['y'] . ' ' . $h['x'].','.$h['y'] ));
+														.	' C'.($f['x']-$curveOffset).','.$f['y'] . ' ' . ($g['x']+$curveOffset).','.$g['y'] . ' ' . $h['x'].','.$h['y'] ));
 													
 				$this->addElement( $pathIn );
 				$this->addElement( $pathOut );
 				
+				if( $childIndention > 0) {
+				$lineIn = new \Hoathis\GraphicTools\Line();
+				$lineOut = new \Hoathis\GraphicTools\Line();
+				
+				$lineIn->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2'));
+				$lineIn->setAttributes( array( 'x1'=>$d['x'], 'y1'=>$d['y'], 'x2'=>$d['x']+$childIndention/2, 'y2'=> $d['y'] ));
+				
+				$lineOut->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2'));
+				$lineOut->setAttributes( array( 'x1'=>$e['x'], 'y1'=>$e['y'], 'x2'=>$e['x']-$childIndention/2, 'y2'=> $e['y'] ));
+				
+				$this->addElement( $lineIn );
+				$this->addElement( $lineOut );
+				}
+				
 			}
 			
-			$element->setAttributes( array( 'y'=> $childYPos . $u, 'x'=> $this->margin.$u ) );
+			
+			
+			
+			$child->setAttributes( array( 'y'=> $childYPos . $u, 'x'=> ( $this->margin + ($childIndention/2) ).$u ) );
 			
 			++$childIndex;
 		}
@@ -282,12 +300,12 @@ abstract class Inode extends Graphic {
 		$offset = 0; // width took by the previous element on x
 
 		// Distribute the token along the height
-		foreach( $this->getElements() as $element ) {
-			$childWidth = $element->getWidth();
+		foreach( $this->getElements() as $child ) {
+			$childWidth = $child->getWidth();
 			$childXPos = $offset + $childIndex*$this->margin;
 			$u = SvgCreator::UNITS; // units
 			
-			$element->setAttributes( array( 'y'=> $this->getHeight()/2 - $element->getHeight()/2 . $u, 'x'=> $childXPos . $u ) );
+			$child->setAttributes( array( 'y'=> $this->getHeight()/2 - $child->getHeight()/2 . $u, 'x'=> $childXPos . $u ) );
 			
 			++$childIndex;
 			$offset += $childWidth + $this->margin;
