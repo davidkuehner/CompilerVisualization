@@ -231,12 +231,16 @@ abstract class Inode extends Graphic {
 	 
 	 private function buildVertivalLayout() {
 		 $childIndex = 0;
+		 $childsHeightSum = 0;
 
 		// Distribute the token along the height
 		foreach( $this->getElements() as $child ) {
 			$childWidth = $child->getWidth();
 			$childHeight = $child->getHeight();
-			$childYPos = $childIndex*$childHeight + $childIndex*$this->margin;
+			
+			$childYPos = $childsHeightSum + $childIndex*$this->margin;
+			$childsHeightSum += $childHeight;
+
 			$childIndention  = $this->getWidth() - $child->getWidth() - 2*$this->margin; // The diff between the child width and the parent width, used to center the child
 			$u = SvgCreator::UNITS; // units
 			
