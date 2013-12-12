@@ -104,6 +104,9 @@ class Visualization implements \Hoa\Visitor\Visit {
             case 'class':
 				$Graphic = $GraphicCreator->createClass();
 				break;
+			case 'negativeclass':
+				$Graphic = $GraphicCreator->createNegativeClass();
+				break;
 			case 'range':
 				$Graphic = $GraphicCreator->createRange();
 				break;

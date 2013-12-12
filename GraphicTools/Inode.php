@@ -43,6 +43,8 @@ abstract class Inode extends Graphic {
 	private $hasLoop;
 	private $hasLoopLabel;
 	private $loopLabel;
+	private $hasComment;
+	private $comment;
 	
 	/**
      * Main constructor
@@ -180,16 +182,21 @@ abstract class Inode extends Graphic {
 		}
 		
 		
-		// Construct a loop, can be bypass or loop. It's defined by
+		// Constructs a loop, can be bypass or loop. It's defined by
 		// the token type of the second child.
 		if( $this->hasLoop ) {
 			$this->buildLoopAndBypass();
 		}
 		
-		// Construct a loop, can be bypass or loop. It's defined by
+		// Constructs a loop, can be bypass or loop. It's defined by
 		// the token type of the second child.
 		if( $this->hasBypass ) {
 			$this->buildBypass();
+		}
+		
+		// Adds comment label
+		if( $this->hasComment ) {
+			$this->buildComment();
 		}
 		
 		// Adds children elements
@@ -450,7 +457,22 @@ abstract class Inode extends Graphic {
 		
 	 }
 	 
-		
+	 private function buildComment() {
+		 $comment = new \Hoathis\GraphicTools\Text( $this->comment );
+		 $comment->setAttributes( array( 'font-size' => ( SvgCreator::FONT_SIZE_COMMENT ) . SvgCreator::UNITS ) );
+		 $comment->setAttributes( array( 'x'=>'0'. SvgCreator::UNITS, 'y'=>'10'. SvgCreator::UNITS));
+		 $this->addElement ( $comment );
+	 }	
+	
+	 /**
+	  * Adds a comment to the element
+	  * @access  public
+	  */
+	 public function addComment ( $value ) {
+		$this->hasComment = true;
+		$this->comment = $value;
+	 }
+	
 	 /**
      * Adds the lines between the in/out of the buildable element and each in/out of the childrens.
      *

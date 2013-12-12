@@ -50,6 +50,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 const FONT_SIZE = 14; 
 	 const FONT_SIZE_LEGEND = 10; 
 	 const FONT_SIZE_UNIT = 'px';
+	 const FONT_SIZE_COMMENT = 8;
 	 const PATH_COLOR = 'gray';
 	 const TOKEN_COLOR = 'lightgray';
 	 const ARROW_COLOR = 'lightgray';
@@ -155,6 +156,15 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		$class->setHeight( -self::BIG_MARGIN, self::UNITS );
 		return $class;
 	}
+	
+	/**
+	 * Creates and returns Buildable Negative element. 
+	 */
+	public function createNegativeClass() {
+		$negClass = $this->createClass();
+		$negClass->addComment( 'Not: ' );
+		return $negClass;
+	}
      
     /**
      * Creates and returns an Buildable Quantification element.
@@ -228,7 +238,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		return $literal;
 	}
 	
-	private function createDefaultToken( $value ) {
+	public function createDefaultToken( $value ) {
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
 		$textCell->setAttributes( array( 'text-anchor'=>'middle', 'font-size' => ( Self::FONT_SIZE_LEGEND ) . Self::UNITS ) );
 		$textCell->setWidth( 0, Self::UNITS ); // little hack to avoid quantification to take the width of the label
