@@ -45,6 +45,7 @@ abstract class Inode extends Graphic {
 	private $loopLabel;
 	private $hasComment;
 	private $comment;
+	private $hasCondition;
 	
 	/**
      * Main constructor
@@ -62,6 +63,9 @@ abstract class Inode extends Graphic {
 		$this->hasLoop  = false;
 		$this->hasLoopLabel  = false;
 		$this->loopLabel = '';
+		$this->hasComment = false;
+		$this->comment = '';
+		$this->hasCondition = false;
 		$this->margin = 0;
 	}
 	
@@ -171,6 +175,10 @@ abstract class Inode extends Graphic {
 		
 		$builder = $this->buildOpenerTag( $className );
 		
+		// Constructs a if then else structure with children
+		if( $this->hasCondition ) {
+			$this->buildCondition();
+		}
 		
 		// Sets (x;y) position to the child according to the layout
 		// And adds paths to each children if asked
@@ -323,6 +331,28 @@ abstract class Inode extends Graphic {
 		}
 	 }
 	 
+	 private function buildCondition() {
+		// We have 3 childre in condition structure : if then else
+		
+		$ifStatement = $this->elements[0]; // if is child[0]
+		$thenStatement = $this->elements[1]; // then is child[1]
+		$elseStatement = $this->elements[2]; // else is child[2]
+		
+		unset($this->elements[1]);
+		unset($this->elements[2]);
+		
+		$thenElse = new \Hoathis\GraphicTools\Svg();
+		$thenElse->setVerticalLayout();
+		$thenElse->addPaths();
+		$thenElse->setMargin( SvgCreator::BIG_MARGIN );
+		$thenElse->setHeight( -SvgCreator::BIG_MARGIN, SvgCreator::UNITS );
+		$thenElse->addChild($thenStatement);
+		$thenElse->addChild($elseStatement);
+		
+		$this->addChild($thenElse);
+		$this->setWidth( $this->getWidth() + $this->margin*2 , SvgCreator::UNITS );
+	 }
+	 
 	 private function buildLoopAndBypass() {
 		$label = $this->elements[1];
 		
@@ -463,6 +493,13 @@ abstract class Inode extends Graphic {
 		 $comment->setAttributes( array( 'x'=>'0'. SvgCreator::UNITS, 'y'=>'10'. SvgCreator::UNITS));
 		 $this->addElement ( $comment );
 	 }	
+	 
+	 /**
+	  * Adds if else then structure when the node is build
+	  */
+	 public function addCondition() {
+		 $this->hasCondition = true;
+	 }
 	
 	 /**
 	  * Adds a comment to the element

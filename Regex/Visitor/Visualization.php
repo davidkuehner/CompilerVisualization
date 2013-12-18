@@ -114,6 +114,23 @@ class Visualization implements \Hoa\Visitor\Visit {
 				$value = $element->getValue();
 				$Graphic = $GraphicCreator->createToken($value['token'], $value['value']);
 				break;
+			case 'lookahead':
+				$Graphic = $GraphicCreator->createLookahead();
+				break;
+			case 'negativelookahead':
+				$Graphic = $GraphicCreator->createNegativeLookahead();
+				break;
+			case 'lookbehind':
+				$Graphic = $GraphicCreator->createLookbehind();
+				break;
+			case 'negativelookbehind':
+				$Graphic = $GraphicCreator->createNegativeLookbehind();
+				break;
+			case 'absolutecondition':
+				// Still under construction
+				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
+				//$Graphic = $GraphicCreator->createAbsoluteCondition();
+				//break;
 			default:
 				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
         }

@@ -53,6 +53,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 const FONT_SIZE_COMMENT = 8;
 	 const PATH_COLOR = 'gray';
 	 const TOKEN_COLOR = 'lightgray';
+	 const COND_COLOR = 'Moccasin';
 	 const ARROW_COLOR = 'lightgray';
 	 const TOKEN_ROUND_CORNER = 5;
 	
@@ -95,7 +96,10 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		$display = str_replace('_',' ',$token);
 		switch ($token) {
 			case "literal":
-				$token = $this->createLiteralToken( $value );
+				$token = $this->createLiteralToken( $value, SvgCreator::TOKEN_COLOR );
+				break;
+			case "index":
+				$token = $this->createLiteralToken( 'if ' . $token . ' : ' . $value , SvgCreator::COND_COLOR );
 				break;
 			case "zero_or_one":
 			case "zero_or_one_lazy":
@@ -162,7 +166,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 */
 	public function createNegativeClass() {
 		$negClass = $this->createClass();
-		$negClass->addComment( 'Not: ' );
+		$negClass->addComment( 'not: ' );
 		return $negClass;
 	}
      
@@ -218,14 +222,14 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		 
 	 }
 	
-	private function createLiteralToken( $value ) {
+	private function createLiteralToken( $value, $fill_color ) {
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
 		$textCell->setAttributes( array( 'text-anchor'=>'middle' ) );
 		
 		$rect = new \Hoathis\GraphicTools\Rect();
 		$rect->setHeight( $textCell->getHeight() + self::MARGIN*2, self::UNITS );
 		$rect->setWidth( $textCell->getWidth() + self::MARGIN*2, self::UNITS );
-		$rect->setAttributes( array( 'fill'=> SvgCreator::TOKEN_COLOR ) );
+		$rect->setAttributes( array( 'fill'=> $fill_color ) );
 		$rect->setAttributes( array( 'rx'=>SvgCreator::TOKEN_ROUND_CORNER, 'ry'=>SvgCreator::TOKEN_ROUND_CORNER ) );
 		
 		$literal = new \Hoathis\GraphicTools\Svg();
@@ -244,6 +248,35 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		$textCell->setWidth( 0, Self::UNITS ); // little hack to avoid quantification to take the width of the label
 		return $textCell;
 	}
+	
+	public function createLookahead() {
+		$lookahead = $this->createClass();
+		$lookahead->addComment( 'followed by: ' );
+		return $lookahead;
+	}
+	public function createNegativeLookahead(){
+		$nlookahead = $this->createClass();
+		$nlookahead->addComment( 'not followed by: ' );
+		return $nlookahead;
+	}
+	public function createLookbehind(){
+		$lookbehind = $this->createClass();
+		$lookbehind->addComment( 'precede by: ' );
+		return $lookbehind;
+	}
+	public function createNegativeLookbehind(){
+		$nlookbehind = $this->createClass();
+		$nlookbehind->addComment( 'not precede by: ' );
+		return $nlookbehind;
+	}
+	public function createAbsoluteCondition(){
+		$condition = new Svg();
+		$condition->setHorizontalLayout();
+		$condition->setMargin( 0 );
+		$condition->addCondition();
+		return $condition;
+	}
+	
 	
 }
 }
