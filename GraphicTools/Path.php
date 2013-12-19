@@ -2,7 +2,11 @@
 
 namespace Hoathis\GraphicTools {
 	
-require_once __DIR__.'/Leaf.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\Leaf
+ */
+->import('GraphicTools.Leaf');
 
 /**
  * Class \Hoathis\GraphicTools\Path.

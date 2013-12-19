@@ -4,7 +4,7 @@ namespace {
 	
 from('Hoathis')
 /**
- * \Hoathis\GraphicTools\Graphic
+ * \Hoathis\GraphicTools\Composite
  */
 ->import('GraphicTools.Composite');
 

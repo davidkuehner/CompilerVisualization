@@ -7,7 +7,6 @@ namespace Hoathis\GraphicTools {
  * \Hoathis\Regex\Visitor\GraphicCreator
  * \Hoathis\Regex\Visitor\Buildable
  * \Hoathis\GraphicTools\SVG
- * \Hoathis\GraphicTools\SvgHLayout
  */
 from('Hoathis')
 ->import('Regex.Visitor.GraphicCreator')

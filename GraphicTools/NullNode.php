@@ -2,7 +2,11 @@
 
 namespace Hoathis\GraphicTools {
 	
-require_once __DIR__.'/Graphic.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\Graphic
+ */
+->import('GraphicTools.Graphic');
 
 
 /**

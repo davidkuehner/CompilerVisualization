@@ -2,7 +2,11 @@
 
 namespace Hoathis\GraphicTools {
 	
-require_once __DIR__.'/Composite.php';
+from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\Composite
+ */
+->import('GraphicTools.Composite');
 
 /**
  * Class \Hoathis\GraphicTools\G.
