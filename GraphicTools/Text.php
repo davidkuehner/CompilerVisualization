@@ -3,7 +3,7 @@
 namespace Hoathis\GraphicTools {
 
 from('Hoathis')
-->import('GraphicTools.Inode')
+->import('GraphicTools.Composite')
 ->import('GraphicTools.TextNode')
 ->import('GraphicTools.SvgCreator');
 
@@ -18,7 +18,7 @@ from('Hoathis')
  * @license    New BSD License
  */
 
-class Text  extends \Hoathis\GraphicTools\Inode {
+class Text  extends \Hoathis\GraphicTools\Composite {
 
 	/**
      * Main constructor

@@ -13,7 +13,7 @@ from('Hoathis')
 namespace Hoathis\GraphicTools {
 
 /**
- * Class \Hoathis\GraphicTools\Inode.
+ * Class \Hoathis\GraphicTools\Composite.
  *
  * Abstract class that represents composite elements 
  * for Composite pattern.
@@ -23,7 +23,7 @@ namespace Hoathis\GraphicTools {
  * @license    New BSD License
  */
 
-abstract class Inode extends Graphic {
+abstract class Composite extends Graphic {
 	
 	/**
 	 * List of elements in the group 
@@ -157,7 +157,7 @@ abstract class Inode extends Graphic {
 	}
 	
 	/**
-     * Builds an inode element.
+     * Builds an composite element.
      *
      * @access  public
      * @return  string

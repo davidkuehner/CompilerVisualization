@@ -6,7 +6,7 @@ from('Hoathis')
 /**
  * \Hoathis\GraphicTools\Graphic
  */
-->import('GraphicTools.Inode');
+->import('GraphicTools.Composite');
 
 }
 
@@ -23,7 +23,7 @@ namespace Hoathis\GraphicTools {
  * @license    New BSD License
  */
 
-class Svg  extends \Hoathis\GraphicTools\Inode {
+class Svg  extends \Hoathis\GraphicTools\Composite {
 	
 	const XML_XMLNS = 'http://www.w3.org/2000/svg';
 	const XML_VERSION = '1.1';

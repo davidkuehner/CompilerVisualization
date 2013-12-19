@@ -2,7 +2,7 @@
 
 namespace Hoathis\GraphicTools {
 	
-require_once __DIR__.'/Inode.php';
+require_once __DIR__.'/Composite.php';
 
 /**
  * Class \Hoathis\GraphicTools\G.
@@ -15,7 +15,7 @@ require_once __DIR__.'/Inode.php';
  * @license    New BSD License
  */
 
-class G extends \Hoathis\GraphicTools\Inode {
+class G extends \Hoathis\GraphicTools\Composite {
 	
 	/**
      * Main constructor
