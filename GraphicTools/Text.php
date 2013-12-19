@@ -37,8 +37,8 @@ class Text  extends \Hoathis\GraphicTools\Inode {
         /* y height and width are hardcoded because they are 
          * nessesary to display the text. It can be overrided.
          */ 
-        $this->attributes = array( 	'y' => SvgCreator::FONT_SIZE +  SvgCreator::FONT_SIZE/Self::RATIO . SvgCreator::UNITS, 
-									'height' => SvgCreator::FONT_SIZE . SvgCreator::UNITS,
+        $this->attributes = array( 	'y' => SvgCreator::FONT_SIZE +  SvgCreator::FONT_SIZE/Self::RATIO, 
+									'height' => SvgCreator::FONT_SIZE,
 									'font-family' => SvgCreator::FONT_FAMILY,
 									'font-size' => SvgCreator::FONT_SIZE );
 		// text width calculation
@@ -71,13 +71,13 @@ class Text  extends \Hoathis\GraphicTools\Inode {
 	 private function widthSetting( $text ) {
 		list($left,$down, $right,,,$up) = imagettfbbox( SvgCreator::FONT_SIZE, 0, __Dir__ . SvgCreator::FONT_PATH , $text);
 		$fontWidth = $right - $left;
-		$this->attributes[ 'width' ] = $fontWidth . SvgCreator::UNITS;
-		$this->attributes[ 'x' ] = ( $fontWidth / 2 + SvgCreator::MARGIN ) . SvgCreator::UNITS;
+		$this->attributes[ 'width' ] = $fontWidth;
+		$this->attributes[ 'x' ] = ( $fontWidth / 2 + SvgCreator::MARGIN );
 	 }
 	 
-	 public function setWidthRecursively( $value, $unit ) {
-		 $this->setWidth( $value, $unit );
-		 $this->attributes[ 'x' ] = ( $value/2 ) .SvgCreator::UNITS;
+	 public function setWidthRecursively( $value ) {
+		 $this->setWidth( $value );
+		 $this->attributes[ 'x' ] = ( $value/2 );
 	 }
 	
 }

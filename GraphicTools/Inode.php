@@ -97,38 +97,38 @@ abstract class Inode extends Graphic {
 			$newText .= $curText->getText();
 			$prevText->setText( $newText );
 			// adapt the widths
-			$prevRect->setWidth( $prevText->getWidth() + SvgCreator::MARGIN * 2, SvgCreator::UNITS );
-			$this->setWidth( $this->getWidth() - $prevRectWidth + $prevRect->getWidth(), SvgCreator::UNITS );
-			$previous->setWidth( $prevRect->getWidth(), SvgCreator::UNITS );
+			$prevRect->setWidth( $prevText->getWidth() + SvgCreator::MARGIN * 2 );
+			$this->setWidth( $this->getWidth() - $prevRectWidth + $prevRect->getWidth() );
+			$previous->setWidth( $prevRect->getWidth() );
 		
 		// if not, do standard work
 		} else {
 			
 			if( $this->isLayoutVertical ) {
 				
-				$this->setHeight( $this->getHeight() + $child->getHeight() + $this->margin, SvgCreator::UNITS );
+				$this->setHeight( $this->getHeight() + $child->getHeight() + $this->margin );
 				if ( $this->getWidth() < $child->getWidth() + $this->margin * 2 ) {
-					//$this->setWidthRecursively( $child->getWidth() , SvgCreator::UNITS );
-					$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
+					//$this->setWidthRecursively( $child->getWidth()  );
+					$this->setWidth( $child->getWidth() + $this->margin * 2);
 				} else {
-					//$child->setWidthRecursively( $this->getWidth() -  $this->margin * 2, SvgCreator::UNITS );
+					//$child->setWidthRecursively( $this->getWidth() -  $this->margin * 2 );
 				}
 				
 				
 			} else if( $this->isLayoutHorizontal ) {
 				
 				if ( $this->getHeight() < $child->getHeight() + $this->margin * 2 ) {
-					$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
+					$this->setHeight( $child->getHeight() + $this->margin * 2);
 				}
-				$this->setWidth( $this->getWidth() + $child->getWidth() + $this->margin, SvgCreator::UNITS );
+				$this->setWidth( $this->getWidth() + $child->getWidth() + $this->margin );
 				
 			} else if( $this->isLayoutWrapping ) {
 	
 				if ( $this->getHeight() < $child->getHeight() ) {
-					$this->setHeight( $child->getHeight() + $this->margin * 2, SvgCreator::UNITS);
+					$this->setHeight( $child->getHeight() + $this->margin * 2);
 				}
 				if ( $this->getWidth() < $child->getWidth() ) {
-					$this->setWidth( $child->getWidth() + $this->margin * 2, SvgCreator::UNITS);
+					$this->setWidth( $child->getWidth() + $this->margin * 2);
 				}
 				
 			}
@@ -219,10 +219,10 @@ abstract class Inode extends Graphic {
 		return $builder;
 	 }
 	 
-	 public function setWidthRecursively( $value, $unit ) {
-		 $this->setWidth( $value, $unit );
+	 public function setWidthRecursively( $value ) {
+		 $this->setWidth( $value );
 		 foreach( (array)$this->elements as $child ) {
-			$child->setWidthRecursively( $value, $unit );
+			$child->setWidthRecursively( $value );
 		 }
 	 }
 	 
@@ -257,7 +257,6 @@ abstract class Inode extends Graphic {
 			$childsHeightSum += $childHeight;
 
 			$childIndention  = $this->getWidth() - $child->getWidth() - 2*$this->margin; // The diff between the child width and the parent width, used to center the child
-			$u = SvgCreator::UNITS; // units
 			
 			// Adds path if nessesary
 			if( $this->hasPath ) {
@@ -308,7 +307,7 @@ abstract class Inode extends Graphic {
 			
 			
 			
-			$child->setAttributes( array( 'y'=> $childYPos . $u, 'x'=> ( $this->margin + ($childIndention/2) ).$u ) );
+			$child->setAttributes( array( 'y'=> $childYPos, 'x'=> ( $this->margin + ($childIndention/2) ) ) );
 			
 			++$childIndex;
 		}
@@ -322,9 +321,8 @@ abstract class Inode extends Graphic {
 		foreach( $this->getElements() as $child ) {
 			$childWidth = $child->getWidth();
 			$childXPos = $offset + $childIndex*$this->margin;
-			$u = SvgCreator::UNITS; // units
 			
-			$child->setAttributes( array( 'y'=> $this->getHeight()/2 - $child->getHeight()/2 . $u, 'x'=> $childXPos . $u ) );
+			$child->setAttributes( array( 'y'=> $this->getHeight()/2 - $child->getHeight()/2, 'x'=> $childXPos ) );
 			
 			++$childIndex;
 			$offset += $childWidth + $this->margin;
@@ -345,12 +343,12 @@ abstract class Inode extends Graphic {
 		$thenElse->setVerticalLayout();
 		$thenElse->addPaths();
 		$thenElse->setMargin( SvgCreator::BIG_MARGIN );
-		$thenElse->setHeight( -SvgCreator::BIG_MARGIN, SvgCreator::UNITS );
+		$thenElse->setHeight( -SvgCreator::BIG_MARGIN );
 		$thenElse->addChild($thenStatement);
 		$thenElse->addChild($elseStatement);
 		
 		$this->addChild($thenElse);
-		$this->setWidth( $this->getWidth() + $this->margin*2 , SvgCreator::UNITS );
+		$this->setWidth( $this->getWidth() + $this->margin*2  );
 	 }
 	 
 	 private function buildLoopAndBypass() {
@@ -368,13 +366,12 @@ abstract class Inode extends Graphic {
 		}
 		
 		
+		
 	 }
 	 
 	 private function buildBypass() {
 		$child = $this->elements[0]; // first element of the quantification is the core
 		$label = $this->elements[1]; // second element is the token that define the quantification
-
-		$u = SvgCreator::UNITS; // units
 				
 		$p = array('x' => $this->margin, 'y' => $child->getHeight()/2 + $this->margin);  //in
 		$q = array('x' => $child->getWidth() + $this->margin, 'y' => $p['y']); // out
@@ -396,7 +393,7 @@ abstract class Inode extends Graphic {
 		$l = array('x' => $h['x']+$this->margin/2, 'y' => $a['y']);
 		
 		$pa = new \Hoathis\GraphicTools\Line();
-		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
+		$pa->setAttributes( array( 'x1'=>$p['x'], 'y1'=>$p['y'], 'x2'=>$a['x'], 'y2'=>$a['y'] ) );
 		$pa->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $pa );
 		
@@ -419,19 +416,17 @@ abstract class Inode extends Graphic {
 		$this->addElement( $arrowRight );
 		
 		$lq = new \Hoathis\GraphicTools\Line();
-		$lq->setAttributes( array( 'x1'=>$l['x'].$u, 'y1'=>$l['y'].$u, 'x2'=>$q['x'].$u, 'y2'=>$q['y'].$u ) );
+		$lq->setAttributes( array( 'x1'=>$l['x'], 'y1'=>$l['y'], 'x2'=>$q['x'], 'y2'=>$q['y'] ) );
 		$lq->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $lq );
 		
-		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));
-		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin . $u, 'y'=>$this->margin/2 . $u ));
+		$child->setAttributes( array( 'x'=>$this->margin, 'y'=>$this->margin ));
+		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin, 'y'=>$this->margin/2 ));
 	 }
 	 
 	 private function buildLoop() {
 		$child = $this->elements[0]; // first element of the quantification is the core
 		$label = $this->elements[1]; // second element is the token that define the quantification
-
-		$u = SvgCreator::UNITS; // units
 				
 		$p = array('x' => 0, 'y' => $child->getHeight()/2 + $this->margin);  //in
 		
@@ -451,7 +446,7 @@ abstract class Inode extends Graphic {
 		$q = array('x' => $child->getWidth() + $this->margin * 2, 'y' => $p['y']); // out
 		
 		$pa = new \Hoathis\GraphicTools\Line();
-		$pa->setAttributes( array( 'x1'=>$p['x'].$u, 'y1'=>$p['y'].$u, 'x2'=>$a['x'].$u, 'y2'=>$a['y'].$u ) );
+		$pa->setAttributes( array( 'x1'=>$p['x'], 'y1'=>$p['y'], 'x2'=>$a['x'], 'y2'=>$a['y'] ) );
 		$pa->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $pa );
 		
@@ -478,19 +473,19 @@ abstract class Inode extends Graphic {
 		$this->addElement( $arrowDown );
 		
 		$lq = new \Hoathis\GraphicTools\Line();
-		$lq->setAttributes( array( 'x1'=>$l['x'].$u, 'y1'=>$l['y'].$u, 'x2'=>$q['x'].$u, 'y2'=>$q['y'].$u ) );
+		$lq->setAttributes( array( 'x1'=>$l['x'], 'y1'=>$l['y'], 'x2'=>$q['x'], 'y2'=>$q['y'] ) );
 		$lq->setAttributes( array( 'style'=>'stroke:'.SvgCreator::PATH_COLOR.'; stroke-width:2' ));
 		$this->addElement( $lq );
 		
-		$child->setAttributes( array( 'x'=>$this->margin.$u, 'y'=>$this->margin.$u ));
-		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin . $u, 'y'=>$this->margin/2 . $u ));
+		$child->setAttributes( array( 'x'=>$this->margin, 'y'=>$this->margin ));
+		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin, 'y'=>$this->margin/2 ));
 		
 	 }
 	 
 	 private function buildComment() {
 		 $comment = new \Hoathis\GraphicTools\Text( $this->comment );
-		 $comment->setAttributes( array( 'font-size' => ( SvgCreator::FONT_SIZE_COMMENT ) . SvgCreator::UNITS ) );
-		 $comment->setAttributes( array( 'x'=>'0'. SvgCreator::UNITS, 'y'=>'10'. SvgCreator::UNITS));
+		 $comment->setAttributes( array( 'font-size' => ( SvgCreator::FONT_SIZE_COMMENT )  ) );
+		 $comment->setAttributes( array( 'x'=>'0', 'y'=>'10'));
 		 $this->addElement ( $comment );
 	 }	
 	 

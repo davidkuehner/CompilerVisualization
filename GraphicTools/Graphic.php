@@ -53,7 +53,7 @@ abstract class Graphic  implements \Hoathis\Regex\Visitor\Buildable {
 	}
 	
 	/**
-     * Special access methods, in test
+     * Special access methods
      */
     public function setAttribute( $key, $value ) {
 	 $this->attributes[$key] = $value;
@@ -64,24 +64,17 @@ abstract class Graphic  implements \Hoathis\Regex\Visitor\Buildable {
 	return null;
 	}
 	 
-	 
-	public function getWidthAndUnits() {
-		return $this->getSplittedValueUnits( 'width' ); 
-	}
-	public function getHeightAndUnits() {
-		return $this->getSplittedValueUnits( 'height' ); 
-	}
 	public function getWidth() {
-		return $this->getValueWithoutUnits( 'width' );
+		return $this->getAttribute( 'width' );
 	}
 	public function getHeight() {
-		return $this->getValueWithoutUnits( 'height' );
+		return $this->getAttribute( 'height' );
 	}
-	public function setWidth($value, $units) {
-		$this->setAttribute( 'width', $value . $units );
+	public function setWidth( $value ) {
+		$this->setAttribute( 'width', $value );
 	}
-	public function setHeight($value, $units) {
-		$this->setAttribute( 'height', $value . $units );
+	public function setHeight( $value ) {
+		$this->setAttribute( 'height', $value );
 	}
 	
 	
@@ -97,32 +90,6 @@ abstract class Graphic  implements \Hoathis\Regex\Visitor\Buildable {
     public function addLoopLabel ( $label ) {}
 
     public function addChild( \Hoathis\Regex\Visitor\Buildable $child) {}
-	
-	/**
-	 * Privates functions
-	 */
-	 
-	private function getValueWithoutUnits( $key ) {
-		$valueAndUnits = $this->getSplittedValueUnits( $key );
-		if ( $valueAndUnits !== null )
-			return $valueAndUnits[0];
-		return 0;
-	}
-	
-	private function getSplittedValueUnits( $key ) {
-		$valueWithUnit = $this->getAttribute( $key );
-		if ( $valueWithUnit !== null ){
-			return $this->splitValueUnits( $valueWithUnit );	}
-		return null;
-	}
-	
-	private function splitValueUnits( $valueWithUnit ) {
-		$pattern = "/^-?[0-9]+|\w+$/";
-		preg_match_all($pattern, $valueWithUnit, $matches);
-		$result[0] = floatval($matches[0][0]);
-		$result[1] = $matches[0][1];
-		return $result;
-	}
 
 }
 
