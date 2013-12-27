@@ -1,11 +1,19 @@
 <?php
 
-namespace Hoathis\GraphicTools {
+namespace {
 
 from('Hoathis')
+/**
+ * \Hoathis\GraphicTools\Composite 
+ * \Hoathis\GraphicTools\TextNode 
+ * \Hoathis\GraphicTools\SvgCreator 
+ */
 ->import('GraphicTools.Composite')
 ->import('GraphicTools.TextNode')
 ->import('GraphicTools.SvgCreator');
+}
+
+namespace Hoathis\GraphicTools {
 
 /**
  * Class \Hoathis\GraphicTools\Text.
@@ -17,69 +25,62 @@ from('Hoathis')
  * @copyright  Copyright © 2007-2013 David Kühner
  * @license    New BSD License
  */
-
 class Text  extends \Hoathis\GraphicTools\Composite {
 
-	/**
-     * Main constructor
-     *
-     * @param   string		$text     The content to display
-     */
-     
-    /*
-     * Ratio between font size and y alignment
-     */
-     const RATIO = 7;
-     
-	function __construct($text) {
-		parent::__construct();		
+	/*
+	 * Ratio between font size and y alignment
+	 */
+	const RATIO = 7;
 
-        /* y height and width are hardcoded because they are 
-         * nessesary to display the text. It can be overrided.
-         */ 
-        $this->attributes = array( 	'y' => SvgCreator::FONT_SIZE +  SvgCreator::FONT_SIZE/Self::RATIO, 
+	/**
+	 * Main constructor
+	 */
+	function __construct($text) {
+		parent::__construct();
+
+		$this->attributes = array( 	'y' => SvgCreator::FONT_SIZE +  SvgCreator::FONT_SIZE/Self::RATIO, 
 									'height' => SvgCreator::FONT_SIZE,
 									'font-family' => SvgCreator::FONT_FAMILY,
 									'font-size' => SvgCreator::FONT_SIZE );
 		// text width calculation
 		$this->widthSetting( $text );
 		
-        $this->elements = array();
-        $textNode = new \Hoathis\GraphicTools\TextNode( $text );
-        $this->addChild( $textNode );
-    }
-    
-    /**
-     * Get the textNode text value
-     * 
-     * @return string The value 
-     */
-     public function getText() {
+		$this->elements = array();
+		$textNode = new \Hoathis\GraphicTools\TextNode( $text );
+		$this->addChild( $textNode );
+	}
+
+	/**
+	 * Gets the textNode text value.
+	 * 
+	 * @access public
+	 * @return string The value 
+	 */
+	public function getText() {
 		return $this->elements[0]->getText();
-	 }
-	 
-	 /**
-     * Set the textNode text value
-     * 
-     * @param string The value 
-     */
-     public function setText( $text ) {
+	}
+ 
+	/**
+	 * Sets the textNode text value.
+	 * 
+	 * @access public
+	 * @param string The text value.
+	 */
+	public function setText( $text ) {
 		 $this->widthSetting( $text );
 		 $this->elements[0]->setText( $text );
-	 }
-	 
-	 private function widthSetting( $text ) {
+	}
+
+	/**
+	 * Sets the width based on the text size using imagettfbbox.
+	 * 
+	 * @access private
+	 * @param string The text value. 
+	 */
+	private function widthSetting( $text ) {
 		list($left,$down, $right,,,$up) = imagettfbbox( SvgCreator::FONT_SIZE, 0, __Dir__ . SvgCreator::FONT_PATH , $text);
 		$fontWidth = $right - $left;
 		$this->attributes[ 'width' ] = $fontWidth;
 		$this->attributes[ 'x' ] = ( $fontWidth / 2 + SvgCreator::MARGIN );
-	 }
-	 
-	 public function setWidthRecursively( $value ) {
-		 $this->setWidth( $value );
-		 $this->attributes[ 'x' ] = ( $value/2 );
-	 }
-	
-}
-
-}
+	}
+}}

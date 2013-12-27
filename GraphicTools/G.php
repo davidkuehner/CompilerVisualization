@@ -1,12 +1,15 @@
 <?php
 
-namespace Hoathis\GraphicTools {
+namespace {
 	
 from('Hoathis')
 /**
  * \Hoathis\GraphicTools\Composite
  */
 ->import('GraphicTools.Composite');
+}
+
+namespace Hoathis\GraphicTools {
 
 /**
  * Class \Hoathis\GraphicTools\G.
@@ -18,16 +21,13 @@ from('Hoathis')
  * @copyright  Copyright © 2007-2013 David Kühner
  * @license    New BSD License
  */
-
 class G extends \Hoathis\GraphicTools\Composite {
-	
+
 	/**
-     * Main constructor
-     */
+	 * Main constructor
+	 */
 	function __construct() {
 		$this->elements = array();
 		$this->attributes = array();
 	}
-}
-
-}
+}}

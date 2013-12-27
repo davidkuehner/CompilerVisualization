@@ -1,13 +1,15 @@
 <?php
 
-namespace Hoathis\GraphicTools {
-	
+namespace {
+
 from('Hoathis')
 /**
  * \Hoathis\GraphicTools\Graphic
  */
 ->import('GraphicTools.Graphic');
+}
 
+namespace Hoathis\GraphicTools {
 
 /**
  * Class \Hoathis\GraphicTools\NullNode.
@@ -19,19 +21,15 @@ from('Hoathis')
  * @copyright  Copyright © 2007-2013 David Kühner
  * @license    New BSD License
  */
-
 class NullNode extends \Hoathis\GraphicTools\Graphic {
 	
 	/**
-     * Build nothing.
-     *
-     * @access  public
-     * @return  string
-     */
-     public function build () {
-		 return '';
-	 }
-	
-}
-
-}
+	 * Build nothing.
+	 *
+	 * @access  public
+	 * @return  string
+	 */
+	public function build () {
+		return '';
+	}
+}}

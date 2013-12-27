@@ -1,12 +1,15 @@
 <?php
 
-namespace Hoathis\GraphicTools {
-	
+namespace {
+
 from('Hoathis')
 /**
  * \Hoathis\GraphicTools\Leaf
  */
 ->import('GraphicTools.Leaf');
+}
+
+namespace Hoathis\GraphicTools {
 
 /**
  * Class \Hoathis\GraphicTools\Rect.
@@ -18,19 +21,15 @@ from('Hoathis')
  * @copyright  Copyright © 2007-2013 David Kühner
  * @license    New BSD License
  */
-
 class Rect  extends \Hoathis\GraphicTools\Leaf {
 
 	/**
-     * Main constructor
-     */
+	 * Main constructor
+	 */
 	function __construct() {
-		
-		$this->attributes = [ 'style'=>'stroke:rgb(255,0,0);stroke-width:2' ];
-        $this->attributes = array();
-        $this->elements = array();
-    }
-	
-}
 
-}
+		$this->attributes = [ 'style'=>'stroke:rgb(255,0,0);stroke-width:2' ];
+		$this->attributes = array();
+		$this->elements = array();
+	}
+}}

@@ -37,7 +37,6 @@
 namespace {
 
 from('Hoa')
-
 /**
  * \Hoa\Visitor\Visit
  */
@@ -48,7 +47,6 @@ from('Hoathis')
  * \Hoathis\GraphicTools\*
  */
 ->import('GraphicTools.*');
-
 }
 
 namespace Hoathis\Regex\Visitor {
@@ -62,46 +60,37 @@ namespace Hoathis\Regex\Visitor {
  * @copyright  Copyright © 2007-2013 David Kühner
  * @license    New BSD License
  */
-
 class Visualization implements \Hoa\Visitor\Visit {
-	
-	 /**
-     * Graphic
-     *
-     * @var \Hoathis\GraphicTools\Graphic
-     */
-    //protected $_Graphic;
 
-    /**
-     * Visit an element.
-     *
-     * @access  public
-     * @param   \Hoa\Visitor\Element  $element    Element to visit.
-     * @param   mixed                 &$handle    Handle (reference).
-     * @param   mixed                 $eldnah     Handle (not reference).
-     * @return  mixed
-     */
-    public function visit ( \Hoa\Visitor\Element $element,
-                            &$handle = null, $eldnah = null ) {							
+	/**
+	 * Visit an element.
+	 *
+	 * @access  public
+	 * @param   \Hoa\Visitor\Element  $element    Element to visit.
+	 * @param   mixed                 &$handle    Handle (reference).
+	 * @param   mixed                 $eldnah     Handle (not reference).
+	 * @return  mixed
+	 */
+	public function visit ( \Hoa\Visitor\Element $element,
+							&$handle = null, $eldnah = null ) {
 		$Graphic = null;
-        $id = str_replace( '#', '' , $element->getId() );
-        $GraphicCreator = \Hoathis\GraphicTools\SvgCreator::getInstance();
-        
-        		
-        switch($id) {
-            case 'expression':
-                $Graphic = $GraphicCreator->createExpression();
-                break;
-            case 'quantification':
-                $Graphic = $GraphicCreator->createQuantification();
-                break;
-            case 'alternation':
+		$id = str_replace( '#', '' , $element->getId() );
+		$GraphicCreator = \Hoathis\GraphicTools\SvgCreator::getInstance();
+
+		switch($id) {
+			case 'expression':
+				$Graphic = $GraphicCreator->createExpression();
+				break;
+			case 'quantification':
+				$Graphic = $GraphicCreator->createQuantification();
+				break;
+			case 'alternation':
 				$Graphic = $GraphicCreator->createAlternation();
 				break;
-            case 'concatenation':
+			case 'concatenation':
 				$Graphic = $GraphicCreator->createConcatenation();
 				break;
-            case 'class':
+			case 'class':
 				$Graphic = $GraphicCreator->createClass();
 				break;
 			case 'negativeclass':
@@ -130,26 +119,21 @@ class Visualization implements \Hoa\Visitor\Visit {
 				// Still under construction
 				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
 				//$Graphic = $GraphicCreator->createAbsoluteCondition();
-				//break;
+				break;
 			default:
 				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
-        }
-        $Graphic->setAttribute( "class", $id );
-        
-        
-        
-        
-        foreach($element->getChildren() as $child) {
-			$visitorElement = $child->accept($this, $handle, $eldnah);
-            $Graphic->addChild($visitorElement);
 		}
-		        
-        if ($id == 'expression') {
+		$Graphic->setAttribute( "class", $id );
+
+		foreach($element->getChildren() as $child) {
+			$visitorElement = $child->accept($this, $handle, $eldnah);
+			$Graphic->addChild($visitorElement);
+		}
+
+		if ($id == 'expression') {
 			echo $Graphic->build();
 		} else {
 			return $Graphic;
 		}
-    }
-}
-
-}
+	}
+}}
