@@ -73,67 +73,67 @@ class Visualization implements \Hoa\Visitor\Visit {
 	 */
 	public function visit ( \Hoa\Visitor\Element $element,
 							&$handle = null, $eldnah = null ) {
-		$Graphic = null;
+		$graphic = null;
 		$id = str_replace( '#', '' , $element->getId() );
-		$GraphicCreator = \Hoathis\GraphicTools\SvgCreator::getInstance();
+		$graphicCreator = \Hoathis\GraphicTools\SvgCreator::getInstance();
 
 		switch($id) {
 			case 'expression':
-				$Graphic = $GraphicCreator->createExpression();
+				$graphic = $graphicCreator->createExpression();
 				break;
 			case 'quantification':
-				$Graphic = $GraphicCreator->createQuantification();
+				$graphic = $graphicCreator->createQuantification();
 				break;
 			case 'alternation':
-				$Graphic = $GraphicCreator->createAlternation();
+				$graphic = $graphicCreator->createAlternation();
 				break;
 			case 'concatenation':
-				$Graphic = $GraphicCreator->createConcatenation();
+				$graphic = $graphicCreator->createConcatenation();
 				break;
 			case 'class':
-				$Graphic = $GraphicCreator->createClass();
+				$graphic = $graphicCreator->createClass();
 				break;
 			case 'negativeclass':
-				$Graphic = $GraphicCreator->createNegativeClass();
+				$graphic = $graphicCreator->createNegativeClass();
 				break;
 			case 'range':
-				$Graphic = $GraphicCreator->createRange();
+				$graphic = $graphicCreator->createRange();
 				break;
 			case 'token':
 				$value = $element->getValue();
-				$Graphic = $GraphicCreator->createToken($value['token'], $value['value']);
+				$graphic = $graphicCreator->createToken($value['token'], $value['value']);
 				break;
 			case 'lookahead':
-				$Graphic = $GraphicCreator->createLookahead();
+				$graphic = $graphicCreator->createLookahead();
 				break;
 			case 'negativelookahead':
-				$Graphic = $GraphicCreator->createNegativeLookahead();
+				$graphic = $graphicCreator->createNegativeLookahead();
 				break;
 			case 'lookbehind':
-				$Graphic = $GraphicCreator->createLookbehind();
+				$graphic = $graphicCreator->createLookbehind();
 				break;
 			case 'negativelookbehind':
-				$Graphic = $GraphicCreator->createNegativeLookbehind();
+				$graphic = $graphicCreator->createNegativeLookbehind();
 				break;
 			case 'absolutecondition':
 				// Still under construction
 				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
-				//$Graphic = $GraphicCreator->createAbsoluteCondition();
+				//$graphic = $graphicCreator->createAbsoluteCondition();
 				break;
 			default:
 				throw new \Exception( ' \Hoathis\Regex\Visitor\Visualization exception : Unhandled element "#' . $id . '" ' );
 		}
-		$Graphic->setAttribute( "class", $id );
+		$graphic->setAttribute( "class", $id );
 
 		foreach($element->getChildren() as $child) {
-			$visitorElement = $child->accept($this, $handle, $eldnah);
-			$Graphic->addChild($visitorElement);
+			$childGraphic = $child->accept($this, $handle, $eldnah);
+			$graphic->addChild($childGraphic);
 		}
 
 		if ($id == 'expression') {
-			echo $Graphic->build();
+			echo $graphic->build();
 		} else {
-			return $Graphic;
+			return $graphic;
 		}
 	}
 }}

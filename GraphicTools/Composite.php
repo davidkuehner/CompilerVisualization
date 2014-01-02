@@ -339,16 +339,15 @@ abstract class Composite extends Graphic {
 	 * @access private
 	 */
 	private function buildVertivalLayout() {
-		$childIndex = 0;
-		$childsHeightSum = 0;
+		$yOffset = 0;
 
 		// Distribute the token along the height
 		foreach( $this->getElements() as $child ) {
 			$childWidth = $child->getWidth();
 			$childHeight = $child->getHeight();
 
-			$childYPos = $childsHeightSum + $childIndex*$this->margin;
-			$childsHeightSum += $childHeight;
+			$childYPos = $yOffset;
+			$yOffset += $childHeight + $this->margin;
 
 			$childIndention  = $this->getWidth() - $child->getWidth() - 2*$this->margin; // The diff between the child width and the parent width, used to center the child
 
@@ -399,7 +398,6 @@ abstract class Composite extends Graphic {
 			}
 
 			$child->setAttributes( array( 'y'=> $childYPos, 'x'=> ( $this->margin + ($childIndention/2) ) ) );
-			++$childIndex;
 		}
 	}
 
@@ -409,18 +407,16 @@ abstract class Composite extends Graphic {
 	 * @access private
 	 */
 	private function buildHorizontalLayout() {
-		$childIndex = 0;
-		$offset = 0; // width took by the previous element on x
+		$xOffset = 0; // width took by the previous element on x
 
 		// Distribute the token along the height
 		foreach( $this->getElements() as $child ) {
 			$childWidth = $child->getWidth();
-			$childXPos = $offset + $childIndex*$this->margin;
+			$childXPos = $xOffset;
 
 			$child->setAttributes( array( 'y'=> $this->getHeight()/2 - $child->getHeight()/2, 'x'=> $childXPos ) );
 
-			++$childIndex;
-			$offset += $childWidth + $this->margin;
+			$xOffset += $childWidth + $this->margin;
 		}
 	}
 
