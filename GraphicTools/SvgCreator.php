@@ -47,8 +47,9 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	const FONT_SIZE_UNIT = 'px';
 	const FONT_SIZE_COMMENT = 8;
 	const PATH_COLOR = 'gray';
+	const PATH_DARK_COLOR = 'rgb(69,69,69)';
 	const TOKEN_COLOR = 'lightgray';
-	const COND_COLOR = 'Moccasin';
+	const COND_COLOR = 'moccasin';
 	const ARROW_COLOR = 'lightgray';
 	const TOKEN_ROUND_CORNER = 5;
 
@@ -199,6 +200,8 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	public function createExpression() {
 		$expression = new Svg();
 		$expression->setWrappingLayout();
+		$expression->setMargin( self::BIG_MARGIN );
+		$expression->addDots();
 		return $expression;
 	}
 

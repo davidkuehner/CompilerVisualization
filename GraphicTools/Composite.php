@@ -51,6 +51,7 @@ abstract class Composite extends Graphic {
 	private $hasLoopLabel;
 	private $hasComment;
 	private $hasCondition;
+	private $hasDots;
 
 	/*
 	 * Building extra data
@@ -76,6 +77,7 @@ abstract class Composite extends Graphic {
 		$this->hasComment = false;
 		$this->comment = '';
 		$this->hasCondition = false;
+		$this->hasDots = false;
 		$this->margin = 0;
 	}
 	
@@ -190,6 +192,9 @@ abstract class Composite extends Graphic {
 		else if( $this->isLayoutHorizontal ) {
 			$this->buildHorizontalLayout();
 		}
+		else if( $this->isLayoutWrapping ) {
+			$this->buildLayoutWrapping();
+		}
 
 		// Constructs a loop, can be bypass or loop. It's defined by
 		// the token type of the second child.
@@ -259,6 +264,16 @@ abstract class Composite extends Graphic {
 		$this->loopLabel = $label;
 	}
 
+	/**
+	 * Adds dots to the begins and ends of the element.
+	 * Created for the wrapping layout
+	 *
+	 * @access  public
+	 */
+	public function addDots ( ) {
+		$this->hasDots = true;
+	}
+	
 	/**
 	 * Sets the margin attribute 
 	 * 
@@ -405,9 +420,9 @@ abstract class Composite extends Graphic {
 	 * Sets the children elements positions with horizontal layout algorithme.
 	 *
 	 * @access private
+	 * @param  $xOffset integer Initial offset to the x coordinate. 0 by default.
 	 */
-	private function buildHorizontalLayout() {
-		$xOffset = 0; // width took by the previous element on x
+	private function buildHorizontalLayout( $xOffset = 0 ) {
 
 		// Distribute the token along the height
 		foreach( $this->getElements() as $child ) {
@@ -418,6 +433,54 @@ abstract class Composite extends Graphic {
 
 			$xOffset += $childWidth + $this->margin;
 		}
+	}
+	
+	/**
+	 * Sets the children elements positions with wrapping layout algorithme.
+	 *
+	 * @access private
+	 */
+	private function buildLayoutWrapping() {
+		
+		// The position of the children are the same with the exception of the initial offset.
+		$this->buildHorizontalLayout( $this->margin );
+		
+		$y = $this->getHeight()/2;
+		
+		// Adds the line in and out
+		$lineIn = new \Hoathis\GraphicTools\Line();
+		$lineOut = new \Hoathis\GraphicTools\Line();
+
+		$lineIn->setAttributes( array( 'style'=>'stroke:'. SvgCreator::PATH_COLOR . '; stroke-width:2'));
+		$lineIn->setAttributes( array( 'x1'=>0, 'y1'=> $y, 'x2'=>$this->margin, 'y2'=> $y ));
+		
+		$lineOut->setAttributes( array( 'style'=>'stroke:'. SvgCreator::PATH_COLOR . '; stroke-width:2'));
+		$lineOut->setAttributes( array( 'x1'=> $this->getWidth()-$this->margin, 'y1'=>$y, 'x2'=>$this->getWidth(), 'y2'=> $y ));
+
+		$this->addElement( $lineIn );
+		$this->addElement( $lineOut );
+		
+		// Adds circles if nessessary
+		if ( $this->hasDots ) {
+			$strokeWidth = 2;
+			$circleRadius = 5;
+			$r = $circleRadius - $strokeWidth;
+			
+			$circleIn = New \Hoathis\GraphicTools\Circle();
+			$circleOut = New \Hoathis\GraphicTools\Circle();
+			
+			$circleIn->setAttributes( array( 'cx'=>$circleRadius - $strokeWidth/2, 'cy'=> $y, 'r'=>$r ));
+			$circleIn->setAttributes( array( 'stroke'=> SvgCreator::PATH_COLOR, 'stroke-width'=>$strokeWidth ));
+			$circleIn->setAttribute( 'fill', SvgCreator::PATH_DARK_COLOR );
+			
+			$circleOut->setAttributes( array( 'cx'=>$this->getWidth() -$circleRadius + $strokeWidth/2, 'cy'=> $y, 'r'=>$r ));
+			$circleOut->setAttributes( array( 'stroke'=> SvgCreator::PATH_COLOR, 'stroke-width'=>$strokeWidth ));
+			$circleOut->setAttribute( 'fill', SvgCreator::PATH_DARK_COLOR );
+			
+			$this->addElement( $circleIn );
+			$this->addElement( $circleOut );
+		}
+		
 	}
 
 	/**
