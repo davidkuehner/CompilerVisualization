@@ -338,7 +338,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 */
 	public function createLookbehind(){
 		$lookbehind = $this->createClass();
-		$lookbehind->addComment( 'precede by: ' );
+		$lookbehind->addComment( 'preceded by: ' );
 		return $lookbehind;
 	}
 
@@ -350,7 +350,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 */
 	public function createNegativeLookbehind(){
 		$nlookbehind = $this->createClass();
-		$nlookbehind->addComment( 'not precede by: ' );
+		$nlookbehind->addComment( 'not preceded by: ' );
 		return $nlookbehind;
 	}
 
