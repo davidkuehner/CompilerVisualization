@@ -94,7 +94,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		
 		switch ($token) {
 			case 'literal':
-				$token = $this->createLiteralToken( $value, SvgCreator::TOKEN_COLOR );
+				$token = $this->createLiteralToken( stripcslashes($value), SvgCreator::TOKEN_COLOR );
 				break;
 			case 'index':
 				$token = $this->createLiteralToken( 'if ' . $token . ' : ' . $value , SvgCreator::COND_COLOR );
@@ -127,61 +127,67 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 				$display = str_replace('n', $match[0][0], $display);
 				$token = $this->createDefaultToken( $display );
 				break;
+			case 'anchor':
+				if( $value == '^' )
+					$token = $this->createLiteralToken( 'start of line', SvgCreator::TOKEN_COLOR );
+				else 
+					$token = $this->createLiteralToken( 'end of line', SvgCreator::TOKEN_COLOR );
+				break;
 			case 'character_type':
 				switch($value) {
 					case '\C': 
-						$token = $this->createLiteralToken( 'one data unit', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' one data unit ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\d': 
-						$token = $this->createLiteralToken( 'decimal digit', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' decimal digit ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\D': 
-						$token = $this->createLiteralToken( 'not a decimal digit', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' not a decimal digit ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\h': 
-						$token = $this->createLiteralToken( 'horizontal white space', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' horizontal white space ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\H': 
-						$token = $this->createLiteralToken( 'not a horizontal white space', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' not a horizontal white space ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\N': 
-						$token = $this->createLiteralToken( 'non-newline', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' non-newline ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\R': 
-						$token = $this->createLiteralToken( 'newline sequence', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' newline sequence ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\s': 
-						$token = $this->createLiteralToken( 'white space', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' white space ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\S': 
-						$token = $this->createLiteralToken( 'not a white space', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' not a white space ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\v': 
-						$token = $this->createLiteralToken( 'vertical white space', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' vertical white space ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\V': 
-						$token = $this->createLiteralToken( 'not a vertical white space', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' not a vertical white space ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\w': 
-						$token = $this->createLiteralToken( '"word"', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' "word" ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\W': 
-						$token = $this->createLiteralToken( '"non-word"', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' "non-word" ', SvgCreator::TOKEN_COLOR );
 						break;
 					case '\X': 
-						$token = $this->createLiteralToken( 'Unicode extended grapheme cluster', SvgCreator::TOKEN_COLOR );
+						$token = $this->createLiteralToken( ' Unicode extended grapheme cluster ', SvgCreator::TOKEN_COLOR );
 						break;
 					default  : 
 						if ( preg_match( '/p{[^}]+}/', $value ) ) {
 							preg_match( '/(?<={).+(?=})/', $value, $match);
-							$token = $this->createLiteralToken( 'a character with the "' . $match[0] . '" property', SvgCreator::TOKEN_COLOR );
+							$token = $this->createLiteralToken( ' a character with the "' . $match[0] . '" property ', SvgCreator::TOKEN_COLOR );
 						}
 						else if( preg_match('/P{[^}]+}/', $value ) ) {
 							preg_match( '/(?<={).+(?=})/', $value, $match);
-							$token = $this->createLiteralToken( 'a character without the "' . $match[0] . '" property', SvgCreator::TOKEN_COLOR );
+							$token = $this->createLiteralToken( ' a character without the "' . $match[0] . '" property ', SvgCreator::TOKEN_COLOR );
 						}
 						else {
-							$token = $this->createLiteralToken( 'unknown type : ' . $value, SvgCreator::TOKEN_COLOR );
+							$token = $this->createLiteralToken( ' unknown type : ' . $value, SvgCreator::TOKEN_COLOR );
 						}
 				}
 				break;
@@ -307,6 +313,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 */
 	public function createLookahead() {
 		$lookahead = $this->createClass();
+		//$lookahead->setMargin( SvgCreator::BIG_MARGIN*3 );
 		$lookahead->addComment( 'followed by: ' );
 		return $lookahead;
 	}
