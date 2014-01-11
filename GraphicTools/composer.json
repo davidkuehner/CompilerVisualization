@@ -1,0 +1,27 @@
+{
+    "name"       : "hoathis/graphictools",
+    "description": "The Hoathis\\GraphicTools library.",
+    "type"       : "library",
+    "license"    : "BSD-3-Clause",
+    "authors"    : [
+        {
+            "name" : "David Kuhner",
+            "email": "dav.kuhn@gmail.com"
+        },
+        {
+            "name"    : "Hoa community",
+            "homepage": "http://hoa-project.net/"
+        }
+    ],
+    "repositories": [
+	   {
+		 "type": "git",
+		 "url": "git://github.com/davidkuhner/compiler-visualization.git"
+	   }
+	]
+    "require": {
+        "php": ">=5.5.*"
+        "compiler-visualization/regex/visitor   : "dev-master"
+    },
+    "minimum-stability": "dev"
+}
