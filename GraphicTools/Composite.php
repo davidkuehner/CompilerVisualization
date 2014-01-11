@@ -663,6 +663,9 @@ abstract class Composite extends Graphic {
 
 		$child->setAttributes( array( 'x'=>$this->margin, 'y'=>$this->margin ));
 		$label->setAttributes( array( 'x'=>$child->getWidth()/2+$this->margin, 'y'=>$this->margin/2 ));
+		
+		// Re add the lebel after the line to bring it to the front
+		// $this->addElement( $label );
 	}
 
 	/**
@@ -673,7 +676,10 @@ abstract class Composite extends Graphic {
 	private function buildComment() {
 		$comment = new \Hoathis\GraphicTools\Text( $this->comment );
 		$comment->setAttributes( array( 'font-size' => ( SvgCreator::FONT_SIZE_COMMENT )  ) );
-		$comment->setAttributes( array( 'x'=>'0', 'y'=>'10'));
+		$comment->setAttributes( array( 'x'=>'0', 'y'=>SvgCreator::FONT_SIZE_COMMENT));
+		//$token = $this->elements[0];
+		//$token->setAttribute( 'x', $token->getAttribute( 'x' ) + $comment->getWidth() );
 		$this->addElement ( $comment );
+		//$this->setHeight( $this->getHeight() + 14 );
 	}
 }}
