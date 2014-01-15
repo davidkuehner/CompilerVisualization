@@ -131,7 +131,7 @@ class Visualization implements \Hoa\Visitor\Visit {
 		}
 
 		if ($id == 'expression') {
-			echo $graphic->build();
+			return $graphic->build();
 		} else {
 			return $graphic;
 		}
