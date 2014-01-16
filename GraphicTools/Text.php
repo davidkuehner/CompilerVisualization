@@ -38,7 +38,7 @@ class Text  extends \Hoathis\GraphicTools\Composite {
 	function __construct($text) {
 		parent::__construct();
 
-		$this->attributes = array( 	'y' => SvgCreator::FONT_SIZE +  SvgCreator::FONT_SIZE/Self::RATIO, 
+		$this->attributes = array( 	'y' => SvgCreator::FONT_SIZE +  SvgCreator::FONT_SIZE / self::RATIO, 
 									'height' => SvgCreator::FONT_SIZE,
 									'font-family' => SvgCreator::FONT_FAMILY,
 									'font-size' => SvgCreator::FONT_SIZE );
