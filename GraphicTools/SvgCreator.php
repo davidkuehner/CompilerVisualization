@@ -300,7 +300,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 */
 	public function createDefaultToken( $value ) {
 		$textCell = new \Hoathis\GraphicTools\Text( $value );
-		$textCell->setAttributes( array( 'text-anchor'=>'middle', 'font-size' => ( Self::FONT_SIZE_LEGEND ) ) );
+		$textCell->setAttributes( array( 'text-anchor'=>'middle', 'font-size' => ( self::FONT_SIZE_LEGEND ) ) );
 		$textCell->setWidth( 0 ); // little hack to avoid quantification to take the width of the label
 		return $textCell;
 	}
