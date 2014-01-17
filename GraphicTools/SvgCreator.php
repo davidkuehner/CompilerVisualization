@@ -208,6 +208,8 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 		$expression->setWrappingLayout();
 		$expression->setMargin( self::BIG_MARGIN );
 		$expression->addDots();
+		$expression->addStandard();
+		$expression->addVersion();
 		return $expression;
 	}
 
