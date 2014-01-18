@@ -1,4 +1,4 @@
-compiler-visualization
+Compiler Visualization
 ======================
 
 Les compilateurs sont des outils formidables qui rendent beaucoup de services. Toutefois, il peut vite devenir difficile de visualiser les données qu'ils manipulent en entrée ou en sortie.
