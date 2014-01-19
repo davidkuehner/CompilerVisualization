@@ -40,7 +40,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	/*
 	 * Style constants
 	 */
-	const FONT_PATH = '/FreeSans.ttf'; //F ont file path in the GraphicTools library
+	const FONT_PATH = '/FreeSans.ttf'; //Font file path in the GraphicTools library
 	const FONT_FAMILY = 'FreeSans';
 	const FONT_SIZE = 14; 
 	const FONT_SIZE_LEGEND = 10; 
@@ -102,7 +102,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 			case 'zero_or_one':
 			case 'zero_or_one_lazy':
 			case 'zero_or_one_possessive':
-				$token = new NullNode();
+				$token = new \Hoathis\GraphicTools\NullNode();
 				$token = $this->createDefaultToken( $display );
 				break;
 			case 'exactly_n':
@@ -204,7 +204,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * @return Hoathis\Regex\Visitor\Buildable
 	 */
 	public function createExpression() {
-		$expression = new Svg();
+		$expression = new \Hoathis\GraphicTools\Svg();
 		$expression->setWrappingLayout();
 		$expression->setMargin( self::BIG_MARGIN );
 		$expression->addDots();
@@ -220,7 +220,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * @return Hoathis\Regex\Visitor\Buildable
 	 */
 	public function createClass() {
-		$class = new Svg();
+		$class = new \Hoathis\GraphicTools\Svg();
 		$class->setVerticalLayout();
 		$class->addPaths();
 		$class->setMargin( self::BIG_MARGIN );
@@ -247,7 +247,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * @return Hoathis\Regex\Visitor\Buildable
 	 */
 	public function createQuantification() {
-		$quantification = new Svg();
+		$quantification = new \Hoathis\GraphicTools\Svg();
 		$quantification->setWrappingLayout();
 		$quantification->addLoop();
 		$quantification->setMargin( self::BIG_MARGIN );
@@ -261,7 +261,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * @return Hoathis\Regex\Visitor\Buildable
 	 */
 	public function createConcatenation() {
-		$concatenation = new Svg();
+		$concatenation = new \Hoathis\GraphicTools\Svg();
 		$concatenation->setHorizontalLayout();
 		return $concatenation;
 	}
@@ -273,7 +273,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * @return Hoathis\Regex\Visitor\Buildable
 	 */
 	public function createAlternation() {
-		$class = new Svg();
+		$class = new \Hoathis\GraphicTools\Svg();
 		$class->setVerticalLayout();
 		$class->addPaths();
 		$class->setMargin( self::BIG_MARGIN );
@@ -363,7 +363,7 @@ class SvgCreator  implements \Hoathis\Regex\Visitor\GraphicCreator {
 	 * @return Hoathis\Regex\Visitor\Buildable
 	 */
 	public function createAbsoluteCondition(){
-		$condition = new Svg();
+		$condition = new \Hoathis\GraphicTools\Svg();
 		$condition->setHorizontalLayout();
 		$condition->addCondition();
 		return $condition;

@@ -466,8 +466,8 @@ abstract class Composite extends Graphic {
 			$circleRadius = 5;
 			$r = $circleRadius - $strokeWidth;
 			
-			$circleIn = New \Hoathis\GraphicTools\Circle();
-			$circleOut = New \Hoathis\GraphicTools\Circle();
+			$circleIn = new \Hoathis\GraphicTools\Circle();
+			$circleOut = new \Hoathis\GraphicTools\Circle();
 			
 			$circleIn->setAttributes( array( 'cx'=>$circleRadius - $strokeWidth/2, 'cy'=> $y, 'r'=>$r ));
 			$circleIn->setAttributes( array( 'stroke'=> SvgCreator::PATH_COLOR, 'stroke-width'=>$strokeWidth ));
