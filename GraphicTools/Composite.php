@@ -96,10 +96,12 @@ abstract class Composite extends Graphic {
 			&& $previous->getAttribute( 'class' ) == 'token' ) {
 
 			// Simple concatenation
-			$prevText = end( $previous->getElements() );
-			$prevRect = reset( $previous->getElements() );
+			$tempPrevElements = $previous->getElements();
+			$prevText = end( $tempPrevElements ); 
+			$prevRect = reset( $tempPrevElements );
 			$prevRectWidth = $prevRect->getWidth(); // saved for later
-			$curText = end( $child->getElements() );
+			$tempChildElements = $child->getElements();
+			$curText = end( $tempChildElements );
 			$newText = $prevText->getText();
 
 			// If current context is range
